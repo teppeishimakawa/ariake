@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+　<style type="text/css">
+.btn{
+	position: relative;
+	display:inline-block;
+    }
+
+.txt{
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%,-55%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.video{
+  position: relative;
+  display:block;
+    }
+
+ </style>
+<title>ariake</title>
+</head>
+<body>
+
+<div class="video">
+<video src="./video/warp1.m4v" autoplay>
+</div>
+
+<br>
+<br>
+
+<div style="text-align: center;">
+ <div id="back" class="btn" >
+  <img src="./button/def.png" width="200" height="80" />
+  <div class="txt">
+   <p>back</p>
+  </div>
+ </div>
+</div>
+
+<script>
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+　<style type="text/css">
+
+.btn{
+	position: relative;
+	display:inline-block;
+    }
+
+.txt{
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%,-55%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+
+
+ </style>
+<title>ariake</title>
+</head>
+
+<body>
+<p style="text-align: center;">メニューを選択してください</p>
+<br>
+<br>
+<!--inlineblockなのでtext-align:centerで中央寄せ-->
+<div style="text-align: center;">
+
+ <div id="menu1" class="btn" >
+  <img src="./button/menu1.png" width="250" height="100" />
+  <div class="txt">
+   <p>まなぶ</p>
+  </div>
+ </div>
+
+<br>
+<br>
+
+  <div id="menu2" class="btn">
+  <img src="./button/menu2.png" width="250" height="100" />
+  <div class="txt">
+   <p id="test">あそぶ</p>
+  </div>
+ </div>
+
+ <br>
+ <br>
+
+  <div id="menu3" class="btn">
+  <img src="./button/menu3.png" width="250" height="100"/>
+  <div class="txt">
+   <p>設定</p>
+  </div>
+ </div>
+
+</div>
+
+<script>
+
+/*
+document.getElementById("menu1").onclick=function()
+{
+window.location.href="./video.html"
+}
+*/
+
+</script>
+</body>
+</html>
