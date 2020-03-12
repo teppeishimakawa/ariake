@@ -31,20 +31,6 @@
  transition-delay:0s;
       }
 
-
-.video{
-  position: relative;
-  display:block;
-  text-align: center;
-    }
-
-.child{
-  position: absolute;
-  top: 80%;
-  left: 80%;
-  transform: translate(-135%,-50%);
-    }
-
 .btn{
 	position: relative;
 	display:inline-block;
@@ -61,6 +47,14 @@
     font-family :Quicksand, sans-serif;
     }
 
+.font{
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    text-align: center
+    }
+
 
 
  </style>
@@ -68,13 +62,10 @@
 </head>
 <body>
 
+<p class="font">Q. ここ有明水再生センターで、1日でキレイにできる水の量は？</p>
+<br>
 
-
-<div class="video" >
-<!--overlayさせる時はvideo閉じタグ超重要!-->
- <video src="./video/warp1.m4v" width="540" height="270" autoplay></video>
-<!--複数classはspace区切り-->
-  <div style="text-align: center;" class="fade child" id="fader">
+  <div style="text-align: center;" class="fade" id="fader">
    <div id="back" class="btn" >
     <img src="./button/def.png" width="200" height="80" />
     <div class="txt">
@@ -83,7 +74,7 @@
    </div>
   </div>
 
-</div>
+
 
 
 
@@ -126,6 +117,13 @@ document.getElementById("fader").classList.add("fade2");
  document.addEventListener("touchstart",appear,false);
  document.addEventListener("touchstart",reOff,false);
 
+
+document.getElementById("back").style.top=window.innerHeight*0.8 + "px";
+document.getElementById("back").style.left=window.innerWidth*0.4 + "px";
+console.log(window.innerHeight)
+console.log(window.innerWidth)
+
+//window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
 </script>
 
 

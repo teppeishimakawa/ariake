@@ -10,8 +10,18 @@
 html, body ,iframe
 {
   height:100%;
+  width:100%;
   margin: 0;
   padding: 0;
+
+}
+
+body{
+transform-origin:center;
+transform:translateX(240px) translateY(-240px) rotate(-90deg);
+border: 1px solid black;
+width:800px;
+height:1280px;
 }
 
 #container
@@ -29,6 +39,10 @@ iframe
 
 
 
+
+
+
+
   </style>
 <title>ariake</title>
 </head>
@@ -39,6 +53,7 @@ iframe
 <div id="container">
 <iframe src="./menu.html" id="ifma" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe>
 <iframe src="./video.html" id="ifmb" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe>
+<iframe src="./game.html" id="ifmc" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe>
 </div>
 
 
@@ -49,14 +64,44 @@ iframe
 //crossOriginもダメなのでwebServerForChomeじゃないとハマる
 window.onload=function()
 {
+
 document.getElementById("ifma").contentWindow.document.getElementById("menu1").onclick=function()
  {
  document.getElementById("ifma").contentWindow.location.href="./video.html"
  }
 
+document.getElementById("ifma").contentWindow.document.getElementById("menu2").onclick=function()
+ {
+ document.getElementById("ifma").contentWindow.location.href="./game.html"
+ }
+
 }
 
 
+ document.getElementById("ifmb").style.display="none";
+ document.getElementById("ifmc").style.display="none";
+
+
+document.body.style.width=screen.height;
+document.body.style.height=screen.width;
+//document.body.style.width=document.body.offsetHeight;
+console.log(document.body.style.width);
+console.log(window.innerWidth);
+console.log(document.body.offsetWidth);
+console.log(document.body.clientWidth);
+console.log(screen.width)
+console.log(screen.height)
+//document.body.style.height=document.body.offsetWidth;
+
+
+/*
+  var b=document.body;
+   sh=b.offsetHeight;
+   sw=b.offsetWidth;
+   b.style.transform='scale(1,1)';
+   document.body.style.transform='translateX('+(sw-sh)+'px)';
+   scroll(sh,0);
+     */
 
 
 </script>
