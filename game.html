@@ -8,6 +8,20 @@
 　<style type="text/css">
 
 
+html {
+    /*overflow-y: hidden;*/
+}
+
+html, body ,iframe
+{
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+
 .fade{
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
@@ -31,14 +45,46 @@
  transition-delay:0s;
       }
 
+/*width,heightはjsでwindow sizeで定義*/
+.parent{
+  position: relative;
+  display:block;
+  text-align: center;
+  transform: translate(0%,0%);
+    }
+
+.child{
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  transform: translateX(-50%) translateY(-50%);
+    }
+
 .btn{
 	position: relative;
 	display:inline-block;
     }
 
-.txt{
+.txt2{
+    font-weight: bold;
+    font-size: 1em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.txt1{
 	position: absolute;
 	top: 50%;
+    left: 50%;
+    transform: translate(-50%,-78%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.txt{
+  position: absolute;
+  top: 50%;
     left: 50%;
     transform: translate(-50%,-55%);
     color: white;
@@ -48,12 +94,39 @@
     }
 
 .font{
+    display: block;
     color: black;
     font-weight: bold;
     font-size: 2em;
     font-family :Quicksand, sans-serif;
     text-align: center
     }
+
+ul{
+  transform: translateX(-2.0%) translateY(0%);
+}
+
+/*barのpadding*/
+    li {
+    display:  inline-block;
+    width:  100px;
+    text-align:  center;
+    padding: 0px 105px;
+　　　　　}
+
+.bar {
+    width:  30px;
+    height: 300px;
+    margin:  0 auto;
+    background-color: #000;
+}
+
+.bar1 {
+    width:  30px;
+    margin:  0 auto;
+    background-color: #05F;
+}
+
 
 
 
@@ -62,10 +135,65 @@
 </head>
 <body>
 
-<p class="font">Q. ここ有明水再生センターで、1日でキレイにできる水の量は？</p>
+<!--すべての要素を入れないと、child設定しても変な位置に飛ぶのでp要素もparent配下へ-->
+<div class="parent" id="parent">
+<p class="font">Q1. ここ有明水再生センターで、<br>1日にキレイにできる水の量は？</p>
+  <div style="text-align:center;display:block;" >
+   <div id="answer" class="btn" >
+    <img src="./button/def.png" width="200" height="80" />
+    <div class="txt">
+     <p id="test">答える</p>
+    </div>
+   </div>
+  </div>
 <br>
+<br>
+<ul class="chart">
+    <li>
+        <div class="bar" ></div>
+        <div class="bar1" ></div>
+        <p class="num">&nbsp;</p>
+    </li>
+    <li>
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num">&nbsp;</p>
+    </li>
+    <li>
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num">&nbsp;</p>
+    </li>
+</ul>
 
-  <div style="text-align: center;" class="fade" id="fader">
+
+ <div id="btn1" class="btn" style="padding:0px 80px">
+  <img src="./button/btn1.png" width="150" height="150" />
+  <div class="txt1">
+   <p>A</p>
+  </div>
+  <p class="txt2">A. 1リットル</p>
+ </div>
+
+  <div id="btn2" class="btn" style="padding:0px 80px">
+  <img src="./button/btn2.png" width="150" height="150" />
+  <div class="txt1">
+   <p>B</p>
+  </div>
+  <p class="txt2">B. 1万リットル</p>
+ </div>
+
+
+  <div id="btn3" class="btn" style="padding:0px 80px">
+  <img src="./button/btn3.png" width="150" height="150" />
+  <div class="txt1">
+   <p>C</p>
+  </div>
+  <p class="txt2">C. 100万リットル</p>
+ </div>
+
+<!--複数classはspace区切り-->
+  <div style="text-align: center;" class="fade child fade1" id="fader">
    <div id="back" class="btn" >
     <img src="./button/def.png" width="200" height="80" />
     <div class="txt">
@@ -74,6 +202,7 @@
    </div>
   </div>
 
+</div>
 
 
 
@@ -81,6 +210,12 @@
 
 <script>
 
+var cnt1=0;
+var cnt2=0;
+var cnt3=0;
+const bar = document.getElementsByClassName('bar');
+const bar1 = document.getElementsByClassName('bar1');
+const num = document.getElementsByClassName('num');
 
 document.getElementById("back").onclick=function()
  {
@@ -101,7 +236,7 @@ document.getElementById("fader").classList.add("fade1");
 
 window.onload=function()
 {
-document.getElementById("fader").classList.add("fade1");
+
 }
 
 //タップでボタン表示、有効化 →2秒したらまた消える処理
@@ -114,14 +249,55 @@ document.getElementById("fader").classList.add("fade2");
 
  document.addEventListener("click",appear,false);
  document.addEventListener("click",reOff,false);
- document.addEventListener("touchstart",appear,false);
- document.addEventListener("touchstart",reOff,false);
+
+ document.getElementById("parent").style.width=window.innerWidth + "px";
+ document.getElementById("parent").style.height=window.innerHeight + "px";
 
 
-document.getElementById("back").style.top=window.innerHeight*0.8 + "px";
-document.getElementById("back").style.left=window.innerWidth*0.4 + "px";
-console.log(window.innerHeight)
-console.log(window.innerWidth)
+
+
+
+document.getElementById("btn1").onclick=function()
+ {
+  cnt1++;
+ num[0].innerHTML = cnt1;
+ if(cnt1>60){return false}
+ bar1[0].style.height = cnt1*5 + 'px';
+ bar[0].style.height = 300 - cnt1*5 + 'px';
+ //parent windowの変数にcnt1を格納。これをresult iframeから参照する
+ window.parent.pcnt1=cnt1;
+ console.log(window.parent.pcnt1);
+
+ }
+
+document.getElementById("btn2").onclick=function()
+ {
+  cnt2++;
+ num[1].innerHTML = cnt2;
+ if(cnt2>60){return false}
+ bar1[1].style.height = cnt2*5 + 'px';
+ bar[1].style.height = 300 - cnt2*5 + 'px';
+ window.parent.pcnt2=cnt2;
+ }
+
+ document.getElementById("btn3").onclick=function()
+ {
+  cnt3++;
+ num[2].innerHTML = cnt3;
+ if(cnt3>60){return false}
+ bar1[2].style.height = cnt3*5 + 'px';
+ bar[2].style.height = 300 - cnt3*5 + 'px';
+ window.parent.pcnt3=cnt3;
+ }
+
+
+  document.getElementById("answer").onclick=function()
+ {
+location.href="./result.html"
+ }
+
+
+
 
 //window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
 </script>

@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 　<style type="text/css">
 
-body{
-
+/*chromeで右スクロールバー出さないため必要*/
+html {
+    overflow-y: hidden;
 }
 
 .btn{
@@ -79,6 +80,8 @@ body{
 </div>
 
 <script>
+
+console.log(window.parent.pcnt1);
 
 /*
 document.getElementById("menu1").onclick=function()

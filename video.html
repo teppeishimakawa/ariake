@@ -7,6 +7,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 　<style type="text/css">
 
+/*chromeで右スクロールバー出さないため必要*/
+html {
+    overflow-y: hidden;
+}
+
+html, body ,iframe
+{
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body{
+position:relative;
+}
+
 
 .fade{
     -webkit-transition: all 1s;
@@ -31,18 +49,27 @@
  transition-delay:0s;
       }
 
+/*↓のdiv重要*/
+.all{
+position:absolute;
+top:50%;
+left:50%;
+transform: translateX(-50%) translateY(-50%);
+}
+
 
 .video{
   position: relative;
   display:block;
   text-align: center;
+  transform: translate(0%,0%);
     }
 
 .child{
   position: absolute;
-  top: 80%;
-  left: 80%;
-  transform: translate(-135%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
     }
 
 .btn{
@@ -61,6 +88,15 @@
     font-family :Quicksand, sans-serif;
     }
 
+#vid{
+transform-origin:center;
+transform:translateX(0px) translateY(0px) rotate(-90deg);
+border: 1px solid black;
+background: #FFF; 
+
+
+}
+
 
 
  </style>
@@ -69,12 +105,12 @@
 <body>
 
 
-
+<div class="all">
 <div class="video" >
 <!--overlayさせる時はvideo閉じタグ超重要!-->
- <video src="./video/warp1.m4v" width="540" height="270" autoplay></video>
+ <video src="./video/warp1.m4v" autoplay id="vid"></video>
 <!--複数classはspace区切り-->
-  <div style="text-align: center;" class="fade child" id="fader">
+  <div style="text-align: center;" class="fade child fade1" id="fader">
    <div id="back" class="btn" >
     <img src="./button/def.png" width="200" height="80" />
     <div class="txt">
@@ -83,6 +119,7 @@
    </div>
   </div>
 
+</div>
 </div>
 
 
@@ -110,7 +147,7 @@ document.getElementById("fader").classList.add("fade1");
 
 window.onload=function()
 {
-document.getElementById("fader").classList.add("fade1");
+//document.getElementById("fader").classList.add("fade1");
 }
 
 //タップでボタン表示、有効化 →2秒したらまた消える処理
@@ -123,8 +160,14 @@ document.getElementById("fader").classList.add("fade2");
 
  document.addEventListener("click",appear,false);
  document.addEventListener("click",reOff,false);
- document.addEventListener("touchstart",appear,false);
- document.addEventListener("touchstart",reOff,false);
+ //document.addEventListener("touchstart",appear,false);
+ //document.addEventListener("touchstart",reOff,false);
+
+ document.getElementById("vid").style.width=1280*0.8 + "px";
+ document.getElementById("vid").style.height=720*0.8 + "px";
+
+
+
 
 </script>
 
