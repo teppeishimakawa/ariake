@@ -239,6 +239,12 @@ if (req.headers["content-type"] == "application/json")
        console.log(rows);
        });
 
+       connection.query('select *, score1 + score2 + COALESCE(score3, 0) as total from ariaketable;', function (err, result) 
+       {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);
+       });
+
   //query select
    });
 
