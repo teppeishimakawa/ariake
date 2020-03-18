@@ -5,9 +5,23 @@ var http = require('http');
 var fs = require('fs');
 var mysql = require('mysql');
 
+
+var connection = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'ariake',
+    database:'ariake'
+});
+connection.connect();
+
+
 var score1= 0;
 var score2= 0;
 var score3= 0;
+var cnt=0;
+var res1=0;
+var res2=0;
+var res3=0;
 
 
 const ALLOWED_METHODS = [
@@ -145,15 +159,33 @@ var url = req.url;
          });
       }else if ("/rank.html" == url)
   {
-    fs.readFile("./rank.html", "UTF-8", function (err, data)
-    {
-      res.writeHead(200, {"Content-Type": "text/html"});
-      res.write(data.replace("<div></div>","<div>合計点数は、<br>第1問:" 
-      + score1 +"点<br>" + "第2問:" + score2 + "点で、<br>合計:" + (parseInt(score1)+parseInt(score2)) +"点でした！</div>"));
-      res.write(data);
-      res.end();
+
+       connection.query('SELECT * from ariaketable where id=' + cnt + ';', function (err, result) 
+       {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);
+       console.log(result[0].score1);
+       res1 = Object.assign(result[0].score1);
+       res2 = Object.assign(result[0].score2);
+       
+       
+
+
+
+      fs.readFile("./rank.html", "UTF-8", function (err, data)
+      {
+       res.writeHead(200, {"Content-Type": "text/html"});
+       res.write(data.replace("<div></div>","<div>合計点数は、<br>第1問:"
+       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点でした！</div>"));
+       res.write(data);
+       res.end();
+       });
+
     });
    }
+
+
+
 
 
 
@@ -164,23 +196,61 @@ if (req.headers["content-type"] == "application/json")
         {
         var data = JSON.parse(chunk);
         if(data.score1)
-        {
+      {
         console.log(data.score1);
         score1 = Object.assign(data.score1);
         console.log(score1)
-        }else if(data.score2)
+
+
+        connection.query("INSERT INTO ariaketable (score1) VALUES ("+　parseInt(score1) +")", function(err, result)
         {
-        console.log(data.score2);
+        if (err) throw err;
+        console.log(result);
+        })
+        connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
+        {
+        if (err) { console.log('err: ' + err); }
+        console.log(rows);
+        });
+      }else if(data.score2)
+{
         score2 = Object.assign(data.score2);
         console.log(score2)
-        }
-        });
-     }
+
+
+    connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
+    {
+       if (err) { console.log('err: ' + err); }
+       if(rows[rows.length-3].score2 == null){cnt = Object.assign(rows[rows.length-3].id);}
+       else if(rows[rows.length-2].score2 == null){cnt = Object.assign(rows[rows.length-2].id);}else
+       {cnt = Object.assign(rows[rows.length-1].id);}
+         console.log(rows);
+         console.log(cnt);
+       connection.query("UPDATE ariaketable SET score2="+ parseInt(score2) + " WHERE id=" + cnt + ";" , function(err, result)
+       {
+
+       if (err) throw err;
+       console.log(result);
+       })
+
+       connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
+       {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(rows);
+       });
+
+  //query select
+   });
+
+
+//else if(data.score2)
+}
+//req.on
+});
+//(req.headers["content-type"] == "application/json")
+}
 
    }).listen(8080);
-
-
-
 
 
 
