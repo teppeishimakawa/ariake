@@ -221,8 +221,8 @@ if (req.headers["content-type"] == "application/json")
     connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
     {
        if (err) { console.log('err: ' + err); }
-       if(rows[rows.length-3].score2 == null){cnt = Object.assign(rows[rows.length-3].id);}
-       else if(rows[rows.length-2].score2 == null){cnt = Object.assign(rows[rows.length-2].id);}else
+       if(rows.length > 2 && rows[rows.length-3].score2 === null){cnt = Object.assign(rows[rows.length-3].id);}
+       else if(rows.length > 1 && rows[rows.length-2].score2 === null){cnt = Object.assign(rows[rows.length-2].id);}else
        {cnt = Object.assign(rows[rows.length-1].id);}
          console.log(rows);
          console.log(cnt);
