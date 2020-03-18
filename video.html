@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 　<style type="text/css">
 
+
+@keyframes pop {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.1)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+
+
 /*chromeで右スクロールバー出さないため必要*/
 html {
     overflow-y: hidden;
@@ -26,14 +35,59 @@ position:relative;
 }
 
 
+
+
+
+
+.btn-shine {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.btn-shine:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
+.container-02 {
+  display: inline-block;
+  text-align: center;
+  width:200px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+
+
+
+
+
+
 .fade{
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
     -ms-transition: all 1s;
     -o-transition: all 1s;
     transition: all 1s;
-    transition-delay:10s;
-    opacity: 0.5;
+    transition-delay:2s;
+    opacity: 1;
 　　　}
 
     /*消える*/
@@ -44,7 +98,7 @@ position:relative;
 
 /*出る*/
 .fade2{
- opacity:0.5;
+ opacity:1;
  pointer-events:auto;
  transition-delay:0s;
       }
@@ -77,6 +131,11 @@ transform: translateX(-50%) translateY(-50%);
 	display:inline-block;
     }
 
+.btn:active
+{
+animation: pop 0.3s 0s ease;
+}
+
 .txt{
 	position: absolute;
 	top: 50%;
@@ -108,16 +167,22 @@ background: #FFF;
 <div class="all">
 <div class="video" >
 <!--overlayさせる時はvideo閉じタグ超重要!-->
- <video src="./video/warp1.m4v" autoplay id="vid"></video>
-<!--複数classはspace区切り-->
-  <div style="text-align: center;" class="fade child fade1" id="fader">
+ <video src="./video/warp.mp4" autoplay id="vid"></video>
+
+<div style="text-align: center;" class="fade child fade1" id="fader">
+<div id="back" class="container-02 ">
+<a href="#" class="btn-shine is-pink">back</a>
+</div>
+</div>
+
+  <!--div style="text-align: center;" class="fade child fade1" id="fader">
    <div id="back" class="btn" >
     <img src="./button/def.png" width="200" height="80" />
     <div class="txt">
      <p id="test">back</p>
     </div>
    </div>
-  </div>
+  </div-->
 
 </div>
 </div>

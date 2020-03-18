@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+　<style type="text/css">
+
+
+html {
+    /*overflow-y: hidden;*/
+}
+
+html, body ,iframe
+{
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body{
+background: #4CA1AF;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+@keyframes appear {
+0% { opacity: 0.0;transform:scale(0.1) rotate(-45deg) }
+50% {transform:scale(1.5)}
+100% { opacity: 1.0;transform:scale(1.0) rotate(0deg) }
+}
+
+@keyframes pop {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.5)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+@keyframes popa {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.1)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+
+
+
+.btn-shine {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.btn-shine:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
+.container-02 {
+  display: inline-block;
+  text-align: center;
+  width:200px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+
+
+
+
+.fade{
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    transition-delay:2s;
+    opacity: 1;
+　　　}
+
+    /*消える*/
+.fade1{
+ opacity:0;
+ pointer-events:none
+      }
+
+/*出る*/
+.fade2{
+ opacity:1;
+ pointer-events:auto;
+ transition-delay:0s;
+      }
+
+/*width,heightはjsでwindow sizeで定義*/
+.parent{
+  position: relative;
+  display:block;
+  text-align: center;
+  transform: translate(0%,0%);
+    }
+
+.child{
+  position: absolute;
+  top: 20%;
+  left: 90%;
+  transform: translateX(-50%) translateY(-50%);
+    }
+
+.btn{
+  position: relative;
+  display:inline-block;
+  animation: pop 0.5s 0.8s ease;
+    }
+
+
+.btn1
+{
+position: relative;
+display:inline-block;
+}
+
+.btn1:active
+{
+animation: popa 0.3s 0s ease;
+}
+
+.btnall{
+  transform: translateX(2%) translateY(0%);
+}
+
+.txt2{
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family :Quicksand, sans-serif;
+    margin: 0 auto;
+    }
+
+.txt1{
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-48%,-64%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.txt{
+  position: absolute;
+  top: 50%;
+    left: 50%;
+    transform: translate(-50%,-55%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.font{
+  font-family :Quicksand, sans-serif;
+  color: #2f4f4f;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 100%;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  background-color:white;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+ul{
+  transform: translateX(-1.2%) translateY(0%);
+}
+
+/*barのpadding*/
+    li {
+    display:  inline-block;
+    width:  100px;
+    text-align:  center;
+    margin: 0px 107px;
+　　　　　}
+
+.bar {
+    width:  30px;
+    height: 300px;
+    margin:  0 auto;
+    background-color:#778899;
+}
+
+.bar1 {
+    width:  30px;
+    margin:  0 auto;
+    background-color: #1e90ff;
+}
+
+
+
+
+ </style>
+<title>ariake</title>
+</head>
+<body>
+
+<!--すべての要素を入れないと、child設定しても変な位置に飛ぶのでp要素もparent配下へ-->
+<div class="parent" id="parent">
+<p class="font">Q1. ここ有明水再生センターでは、<br>1日に何人の人が働いているでしょうか？</p>
+
+<div style="text-align: center;" class="btn btn1">
+<div id="answer" class="container-02 ">
+<a href="#" class="btn-shine is-pink">答える</a>
+</div>
+</div>
+
+  <!--div style="text-align:center;display:block;" >
+   <div id="answer" class="btn btn1" >
+    <img src="./button/def.png" width="200" height="80" />
+    <div class="txt">
+     <p id="test">答える</p>
+    </div>
+   </div>
+  </div-->
+<br>
+<br>
+<ul>
+    <li>
+        <div class="bar" ></div>
+        <div class="bar1" ></div>
+        <p class="num txt2">&nbsp;</p>
+    </li>
+    <li>
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num txt2">&nbsp;</p>
+    </li>
+    <li>
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num txt2" >&nbsp;</p>
+    </li>
+</ul>
+
+<div class="btnall">
+ <div id="btn1" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn1.png" width="150" height="150" />
+  <div class="txt1">
+   <p>A</p>
+  </div>
+  <p class="txt2">A. 1人</p>
+ </div>
+
+  <div id="btn2" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn2.png" width="150" height="150" />
+  <div class="txt1">
+   <p>B</p>
+  </div>
+  <p class="txt2">B. 100人</p>
+ </div>
+
+
+  <div id="btn3" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn3.png" width="150" height="150" />
+  <div class="txt1">
+   <p>C</p>
+  </div>
+  <p class="txt2">C. 100万人</p>
+ </div>
+</div>
+
+
+<div style="text-align: center;" class="fade child fade1" id="fader">
+<div id="back" class="container-02 ">
+<a href="#" class="btn-shine is-pink">back</a>
+</div>
+</div>
+  <!--div style="text-align: center;" class="fade child fade1" id="fader">
+   <div id="back" class="btn btn1" >
+    <img src="./button/def.png" width="200" height="80" />
+    <div class="txt">
+     <p id="test">back</p>
+    </div>
+   </div>
+  </div-->
+
+</div>
+<br>
+<br>
+
+
+
+
+
+<script>
+
+var cnt1=0;
+var cnt2=0;
+var cnt3=0;
+const bar = document.getElementsByClassName('bar');
+const bar1 = document.getElementsByClassName('bar1');
+const num = document.getElementsByClassName('num');
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+
+
+var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+//document.body.innertWidthだとスクロールしたすべてのウィンドウサイズが取得できる
+ document.getElementById("parent").style.width=document.body.innertWidth + "px";
+ document.getElementById("parent").style.height=document.body.innerHeight + "px";
+
+console.log(document.body.offsetWidth);
+
+
+
+document.getElementById("btn1").onclick=function()
+ {
+  cnt1++;
+ num[0].innerHTML = cnt1;
+ if(cnt1>60){return false}
+ bar1[0].style.height = cnt1*5 + 'px';
+ bar[0].style.height = 300 - cnt1*5 + 'px';
+ //parent windowの変数にcnt1を格納。これをresult iframeから参照する
+ window.parent.pcnt1=cnt1;
+ console.log(window.parent.pcnt1);
+
+ }
+
+document.getElementById("btn2").onclick=function()
+ {
+  cnt2++;
+ num[1].innerHTML = cnt2;
+ if(cnt2>60){return false}
+ bar1[1].style.height = cnt2*5 + 'px';
+ bar[1].style.height = 300 - cnt2*5 + 'px';
+ window.parent.pcnt2=cnt2;
+ }
+
+ document.getElementById("btn3").onclick=function()
+ {
+  cnt3++;
+ num[2].innerHTML = cnt3;
+ if(cnt3>60){return false}
+ bar1[2].style.height = cnt3*5 + 'px';
+ bar[2].style.height = 300 - cnt3*5 + 'px';
+ window.parent.pcnt3=cnt3;
+ }
+
+
+  document.getElementById("answer").onclick=function()
+ {
+location.href="./result2.html"
+ }
+
+
+
+
+//window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
+</script>
+
+
+</body>
+</html>

@@ -8,6 +8,13 @@
 　<style type="text/css">
 
 
+@keyframes pop {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.1)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+
 html {
     /*overflow-y: hidden;*/
 }
@@ -22,13 +29,58 @@ html, body ,iframe
 }
 
 
+.parent{
+  position: relative;
+  display:block;
+  text-align: center;
+  transform: translate(0%,0%);
+    }
+
+.child{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+.txt{
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.child1{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+.txt1{
+    font-weight: bold;
+    font-size: 1em;
+    font-family :Quicksand, sans-serif;
+    }
+
+
+
 
  </style>
 <title>ariake</title>
 </head>
 <body>
 
-aaaaaa
+<div id="result" class="child txt">
+</div>
+<div id="comment" class="child1 txt1">
+</div>
+<br>
 
 
 
@@ -39,7 +91,29 @@ console.log(window.parent.pcnt1)
 console.log(window.parent.pcnt2)
 console.log(window.parent.pcnt3)
 
+var score=0;
 
+  score=parseInt(100*window.parent.pcnt3/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
+
+  if(isNaN(score)){score = 0};
+
+ document.getElementById("result").innerHTML="<img src='./video/laughlot.gif'>";
+ setTimeout(function()
+  {
+  document.getElementById("result").innerHTML="正解はCでした！<br>獲得ポイントは" + score + "点です。<br>Cを選んだ" + window.parent.pcnt3 + "人のみなさん<br>さすがです!!<br><br>"
+  document.getElementById("comment").innerHTML="Aを選んだ人:" + window.parent.pcnt1 + "人<br> Bを選んだ人:" + window.parent.pcnt2 + "人<br> Cを選んだ人:" + window.parent.pcnt3 + "人<br>でした";},5000);
+
+
+window.parent.score1=score;
+
+
+    var json = {};
+    json.score1 = score;
+    var request = new XMLHttpRequest();
+    var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
+    request.open("POST", "http://127.0.0.1:8080");
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(jsonText);
 
 //window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
 </script>
