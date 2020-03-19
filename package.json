@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/teppeishimakawa/ariake#readme",
   "dependencies": {
+    "ejs": "^3.0.1",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "install": "^0.13.0",

@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+　<style type="text/css">
+
+
+ </style>
+<title>ariake</title>
+</head>
+<body>
+
+<div><%- content %></div>
+<br>
+<!--重要！！要素を出力したい場合はscriptの中だとしても<%- %> で記述する！！-->
+<h1>ranking</h1>
+  <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+  	<tr>
+  	 <th bgcolor="#EE0000"><font color="#FFFFFF">ranking</font></th>
+     <th bgcolor="#EE0000"><font color="#FFFFFF">id</font></th>
+     <th bgcolor="#EE0000" width="150"><font color="#FFFFFF">name</font></th>
+     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score1</font></th>
+     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score2</font></th>
+     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score3</font></th>
+     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">total</font></th>
+    </tr>
+
+
+   <% for(var i=0;i < result.length ; i++){ %>
+    <tr>
+    <td> <%- i+1 %>位 </td>
+    <td> <%- String(result[i].id) %> </td>
+   	<td> <%- String(result[i].name) %> </td>
+   	<td> <%- String(result[i].score1) %> </td>
+   	<td> <%- String(result[i].score2) %> </td>
+   	<td> <%- String(result[i].score3) %> </td>
+   	<td> <%- String(result[i].total) %> </td>
+   </tr>
+   <% } %>
+
+  </table>
+
+
+
+
+</body>
+</html>

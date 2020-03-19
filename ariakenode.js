@@ -4,6 +4,7 @@ var http = require('http');
 //var util = require('util');
 var fs = require('fs');
 var mysql = require('mysql');
+var ejs = require('ejs');
 
 
 var connection = mysql.createConnection({
@@ -157,32 +158,63 @@ var url = req.url;
           res.writeHead(200, {"Content-Type": "image/png"});
           res.end(data);
          });
-      }else if ("/rank.html" == url)
+      }else if ("/rank.ejs" == url)
   {
 
        connection.query('SELECT * from ariaketable where id=' + cnt + ';', function (err, result) 
-       {
+    {
        if (err) { console.log('esrr: ' + err); }
        console.log(result);
        console.log(result[0].score1);
+       //objectAssignしてもfunctionで包まないとreadFileにres反映されず
        res1 = Object.assign(result[0].score1);
        res2 = Object.assign(result[0].score2);
-       
-       
 
 
 
-      fs.readFile("./rank.html", "UTF-8", function (err, data)
-      {
+       connection.query('ALTER TABLE ariaketable ADD total integer AS (COALESCE(score1, 0) + COALESCE(score2, 0) + COALESCE(score3, 0)) stored;', function (err, result) 
+     {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);
+
+
+            connection.query('select * from ariaketable order by total desc;', function (err, result) 
+     {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);
+
+
+
+/*connection.query('select@rownum:=@rownum+1 as row_num,score1 from (SELECT @rownum:=0) AS ROW_NUM_TBL,ariaketable;', function (err, result) 
+     {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);　*/
+
+      //↓readFileするのはejs.htmlな点注意!!
+      fs.readFile("./rank.ejs.html", "UTF-8", function (err, data)
+      {var i;
+        var rend = ejs.render(data, {
+        content:"合計点数は、<br>第1問:"
+       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点でした！",
+       result:result,
+        });
+
        res.writeHead(200, {"Content-Type": "text/html"});
+
+       /*
        res.write(data.replace("<div></div>","<div>合計点数は、<br>第1問:"
-       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点でした！</div>"));
-       res.write(data);
+       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点でした！</div>"));*/
+       res.write(rend);
        res.end();
        });
 
+  //sort
+     });
+  //select total score query
     });
-   }
+  //select id query
+   });
+ }
 
 
 
@@ -190,7 +222,7 @@ var url = req.url;
 
 
 if (req.headers["content-type"] == "application/json")
-    {
+{
           req.setEncoding("utf-8");
     req.on("data", function(chunk)
         {
@@ -213,7 +245,7 @@ if (req.headers["content-type"] == "application/json")
         console.log(rows);
         });
       }else if(data.score2)
-{
+ {
         score2 = Object.assign(data.score2);
         console.log(score2)
 
@@ -239,20 +271,15 @@ if (req.headers["content-type"] == "application/json")
        console.log(rows);
        });
 
-       connection.query('select *, score1 + score2 + COALESCE(score3, 0) as total from ariaketable;', function (err, result) 
-       {
-       if (err) { console.log('esrr: ' + err); }
-       console.log(result);
-       });
 
   //query select
    });
 
 
-//else if(data.score2)
-}
-//req.on
-});
+ //else if(data.score2)
+ }
+ //req.on
+ });
 //(req.headers["content-type"] == "application/json")
 }
 
