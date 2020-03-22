@@ -1,3 +1,4 @@
+//mysql pass:ariake
 
 
 var http = require('http');
@@ -23,6 +24,7 @@ var cnt=0;
 var res1=0;
 var res2=0;
 var res3=0;
+
 
 
 const ALLOWED_METHODS = [
@@ -172,31 +174,56 @@ var url = req.url;
 
 
 
-       connection.query('ALTER TABLE ariaketable ADD total integer AS (COALESCE(score1, 0) + COALESCE(score2, 0) + COALESCE(score3, 0)) stored;', function (err, result) 
+
+/* ok文章
+       connection.query('SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable;', function (err, result1) 
      {
        if (err) { console.log('esrr: ' + err); }
-       console.log(result);
+       console.log(result1);
+*/
+      //asで名前つける時は""で囲むの超重要！！
+       connection.query('SELECT * ,FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) as "rank" FROM ariaketable ORDER BY total DESC;', function (err, result2) 
+     {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result2);
 
 
+//"SELECT FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) from ariaketable WHERE id=" + cnt + ";"
+       connection.query('SELECT FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) as "rank" from ariaketable WHERE id=' + cnt + ';', function (err,result3) 
+       {
+        if (err) throw err;
+        console.log(result3);
+
+       //SELECT id, name, total, FIND_IN_SET(total, (120,116,83,66,66,58)) as rank from ariaketable;
+
+/*
+     //並び替え
             connection.query('select * from ariaketable order by total desc;', function (err, result) 
      {
        if (err) { console.log('esrr: ' + err); }
        console.log(result);
+*/
 
-
-
-/*connection.query('select@rownum:=@rownum+1 as row_num,score1 from (SELECT @rownum:=0) AS ROW_NUM_TBL,ariaketable;', function (err, result) 
+/*
+     //行番号付
+　　　　connection.query('select@rownum:=@rownum+1 as row_num,total from (SELECT @rownum:=0) AS ROW_NUM_TBL,ariaketable;', function (err, result) 
      {
        if (err) { console.log('esrr: ' + err); }
-       console.log(result);　*/
+       console.log(result);　
+*/
+
+
 
       //↓readFileするのはejs.htmlな点注意!!
       fs.readFile("./rank.ejs.html", "UTF-8", function (err, data)
-      {var i;
+      {
+
+
+        var i;
         var rend = ejs.render(data, {
         content:"合計点数は、<br>第1問:"
-       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点でした！",
-       result:result,
+       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点で" + result3[0].rank + "位でした！",
+        result:result2,
         });
 
        res.writeHead(200, {"Content-Type": "text/html"});
@@ -208,8 +235,7 @@ var url = req.url;
        res.end();
        });
 
-  //sort
-     });
+  　　});
   //select total score query
     });
   //select id query
@@ -249,7 +275,6 @@ if (req.headers["content-type"] == "application/json")
         score2 = Object.assign(data.score2);
         console.log(score2)
 
-
     connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
     {
        if (err) { console.log('err: ' + err); }
@@ -260,10 +285,15 @@ if (req.headers["content-type"] == "application/json")
          console.log(cnt);
        connection.query("UPDATE ariaketable SET score2="+ parseInt(score2) + " WHERE id=" + cnt + ";" , function(err, result)
        {
-
        if (err) throw err;
        console.log(result);
        })
+
+       //total登録
+       connection.query("UPDATE ariaketable SET total=(COALESCE(score1, 0) + COALESCE(score2, 0) + COALESCE(score3, 0));", function (err, result) 
+       {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(result);
 
        connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
        {
@@ -271,7 +301,7 @@ if (req.headers["content-type"] == "application/json")
        console.log(rows);
        });
 
-
+   });
   //query select
    });
 
