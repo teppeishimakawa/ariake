@@ -5,20 +5,9 @@
 <meta charset="UTF-8" />
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="./style.css"/>
 <!--link rel="prefetch" href="./style.css"-->
 　<style type="text/css">
-
-html, body ,iframe
-{
-  height:100%;
-  width:100%;
-  margin: 0;
-  padding: 0;
-  /*スクロールバー消す場合は以下有効に
-  overflow-x: hidden;
-  overflow-y: hidden;
-  */
-}
 
 
 /*縦にする場合はrotateとwidth,height変更
@@ -30,32 +19,24 @@ width:1280px;
 height:800px;
 }
 */
-
-/
+/*
 body{
 transform-origin:center;
-/*
 transform:translateX(240px) translateY(-240px) rotate(-90deg);
-*/
-border: 1px solid black;
-/*
 width:800px;
 height:1280px;
-*/
+
 }
+*/
 
 
 #container
 {
   height: 100%;
-  padding: 1em;
+  padding: 0em;
 }
 
 
-iframe
-{
- border:1px solid #CCC;
-}
 
 
 
@@ -64,16 +45,13 @@ iframe
 <title>ariake</title>
 </head>
 <body>
-<!--p class="resizeimage">
-   <img src="park.jpg" alt="公園">
-</p-->
 
 <!--scroll off => scrolling no-->
-<div id="container" class="wrap">
+<div id="container">
 <!--iframe src="./menu.html" id="ifma" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe-->
-<iframe src="./menu.html" id="ifma" style="margin:0;padding:0;border:0;" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
-<iframe src="./video.html" id="ifmb" style="margin:0;padding:0;border:0;" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
-<iframe src="./game.html" id="ifmc" style="margin:0;padding:0;border:0;" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
+<iframe src="./menu.html" id="ifma" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
+<iframe src="./video.html" id="ifmb"  width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
+<iframe src="./game.html" id="ifmc"  width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
 
 
 <!--iframe src="./game_result.html" id="ifmd" style="margin:0;padding:0;border:0;" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe-->
@@ -113,7 +91,9 @@ document.getElementById("ifma").contentWindow.document.getElementById("menu2").o
  document.getElementById("ifmb").style.display="none";
  document.getElementById("ifmc").style.display="none";
  console.log(document.getElementById("ifma").offsetHeight);
-
+ console.log(document.getElementById("ifma").offsetWidth);
+console.log(document.documentElement.clientHeight);
+ console.log(document.documentElement.clientWidth);
 //document.body.style.width=document.body.offsetHeight;
 /*
 console.log(document.body.style.width);
@@ -126,29 +106,19 @@ console.log(screen.height)
 
 
 
-/*
-//windowサイズwidthとheightを逆に
-document.body.style.width=screen.height + "px";
+
+//縦横変更する際は以下を有効に。windowサイズwidthとheightを逆に/////////////////////////////
+document.body.style.width=document.documentElement.clientHeight + "px";
 console.log(document.body.style.width);
-document.body.style.height=screen.width + "px";
+document.body.style.height=document.documentElement.clientWidth + "px";
 console.log(document.body.style.height);
 //縦横逆にする時は、縦横の差分/2をXにたし、Yから引く。
 document.body.style.transform=
-"translateX(" + (screen.width - screen.height)/2 + "px) translateY(" + -(screen.width - screen.height)/2 + "px) rotate(-90deg)"
+"translateX(" + (document.documentElement.clientWidth - document.documentElement.clientHeight)/2 + "px) translateY(" + -(document.documentElement.clientWidth - document.documentElement.clientHeight)/2 + "px) rotate(-90deg)"
 
-console.log((screen.width - screen.height)/2);
-*/
+console.log((document.documentElement.clientWidth - document.documentElement.clientHeight)/2);
+///////////////////////////////////////////////////////////////////////////////////////
 
-
-
-/*
-  var b=document.body;
-   sh=b.offsetHeight;
-   sw=b.offsetWidth;
-   b.style.transform='scale(1,1)';
-   document.body.style.transform='translateX('+(sw-sh)+'px)';
-   scroll(sh,0);
-     */
 
 
 </script>
