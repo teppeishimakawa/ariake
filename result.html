@@ -7,6 +7,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 　<style type="text/css">
 
+body{
+background: #4CA1AF;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #C4E0E5, #4CA1AF);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 
 @keyframes pop {
 0% { opacity: 1.0;transform:scale(1.0)}
@@ -29,6 +35,34 @@ html, body ,iframe
 }
 
 
+
+.btn-shine {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.btn-shine:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
 .parent{
   position: relative;
   display:block;
@@ -46,10 +80,34 @@ html, body ,iframe
   width:600px;
     }
 
+    .fade{
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    transition-delay:2s;
+    opacity: 1;
+　　　}
+
+    /*消える*/
+.fade1{
+ opacity:0;
+ pointer-events:none
+      }
+
+/*出る*/
+.fade2{
+ opacity:1;
+ pointer-events:auto;
+ transition-delay:0s;
+      }
+
 .txt{
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1em;
     font-family :Quicksand, sans-serif;
+    color: white;
     }
 
 .child1{
@@ -62,13 +120,43 @@ html, body ,iframe
   width:600px;
     }
 
+.child2{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 20%;
+  left: 90%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
 .txt1{
     font-weight: bold;
     font-size: 1em;
     font-family :Quicksand, sans-serif;
+    color: white;
     }
 
-
+.font{
+  font-family :Quicksand, sans-serif;
+  color: #2f4f4f;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 100%;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  background-color:white;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+    }
 
 
  </style>
@@ -76,36 +164,60 @@ html, body ,iframe
 </head>
 <body>
 
+<div id="seikai" class="font"></div>
 <div id="result" class="child txt">
 </div>
 <div id="comment" class="child1 txt1">
 </div>
 <br>
 
+<div style="text-align: center;" class="fade child2 fade1" id="fader">
+<div id="back" class="container-02 ">
+<a href="#" class="btn-shine is-pink">back</a>
+</div>
+
 
 
 
 <script>
-
-console.log(window.parent.pcnt1)
-console.log(window.parent.pcnt2)
-console.log(window.parent.pcnt3)
-
 var score=0;
+var kekka1;
+var seikai;
 
-  score=parseInt(100*window.parent.pcnt3/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
+document.getElementById("seikai").style.display="none";
 
-  if(isNaN(score)){score = 0};
+if(window.parent.flg1 == 1)
+ {
+score=parseInt(100*window.parent.pcnt3/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
+seikai="正解は<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>C</span>でした！"
+if(!score){score=0};
+kekka1="獲得ポイントは" + score + "点です。<br><br>Cを選んだ" + window.parent.pcnt3 + "人のみなさん、さすがです!!<br><br>"
+
+ }else if(window.parent.flg2 == 1)
+ {
+score=parseInt(100*window.parent.pcnt2/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
+if(!score){score=0};
+seikai="正解は<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>B</span>でした！"
+kekka1="獲得ポイントは" + score + "点です。<br><br>Bを選んだ" + window.parent.pcnt2 + "人のみなさん、さすがです!!<br><br>"
+
+ }
+
+
+ if(isNaN(score)){score = 0};
 
  document.getElementById("result").innerHTML="<img src='./video/laughlot.gif'>";
  setTimeout(function()
   {
-  document.getElementById("result").innerHTML="正解はCでした！<br>獲得ポイントは" + score + "点です。<br>Cを選んだ" + window.parent.pcnt3 + "人のみなさん<br>さすがです!!<br><br>"
-  document.getElementById("comment").innerHTML="Aを選んだ人:" + window.parent.pcnt1 + "人<br> Bを選んだ人:" + window.parent.pcnt2 + "人<br> Cを選んだ人:" + window.parent.pcnt3 + "人<br>でした";},5000);
+  document.getElementById("seikai").style.display="block";
+  document.getElementById("seikai").innerHTML=seikai;
+  document.getElementById("result").innerHTML=kekka1;
+
+  document.getElementById("comment").innerHTML="Aを選んだ人:" + window.parent.pcnt1 + "人<br> Bを選んだ人:" + window.parent.pcnt2 + "人<br> Cを選んだ人:" + window.parent.pcnt3 + "人<br><br>でした";},5000);
 
 
-window.parent.score1=score;
-
+if(window.parent.flg1 == 1)
+ {
+   window.parent.score1=score;
 
     var json = {};
     json.score1 = score;
@@ -114,6 +226,62 @@ window.parent.score1=score;
     request.open("POST", "http://127.0.0.1:8080");
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(jsonText);
+ }
+ else if(window.parent.flg2 == 1)
+ {
+   window.parent.score2=score;
+
+    var json = {};
+    json.score2 = score;
+    var request = new XMLHttpRequest();
+    var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
+    request.open("POST", "http://127.0.0.1:8080");
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(jsonText);
+
+  setTimeout(function()
+  {location.href="./rank.ejs";},10000);
+ }
+
+
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+
+
+var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+//document.body.innertWidthだとスクロールしたすべてのウィンドウサイズが取得できる
+ document.getElementById("parent").style.width=document.body.innertWidth + "px";
+ document.getElementById("parent").style.height=document.body.innerHeight + "px";
+
 
 //window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
 </script>

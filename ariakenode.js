@@ -79,6 +79,7 @@ var url = req.url;
       res.write(data);
       res.end();
     });
+  /*
   }else if ("/game2.html" == url)
   {
     fs.readFile("./game2.html", "UTF-8", function (err, data)
@@ -87,6 +88,7 @@ var url = req.url;
       res.write(data);
       res.end();
     });
+  */
   }else if ("/menu.html" == url)
   {
     fs.readFile("./menu.html", "UTF-8", function (err, data)
@@ -95,8 +97,16 @@ var url = req.url;
       res.write(data);
       res.end();
     });
-
-  }else if ("/result.html" == url)
+  }else if("/style.css" == url)
+    {
+     fs.readFile("./style.css", "UTF-8", function (err, data)
+    {
+      res.writeHead(200, {"Content-Type": "text/css"});
+      res.write(data);
+      res.end();
+    });
+    }
+  else if ("/result.html" == url)
   {
     fs.readFile("./result.html", "UTF-8", function (err, data)
     {
@@ -105,7 +115,7 @@ var url = req.url;
       res.end();
     });
   }
-
+/*
   else if ("/result2.html" == url)
   {
     fs.readFile("./result2.html", "UTF-8", function (err, data)
@@ -115,7 +125,7 @@ var url = req.url;
       res.end();
     });
   }
-
+*/
   else if ("/video.html" == url)
   {
     fs.readFile("./video.html", "UTF-8", function (err, data)
@@ -138,28 +148,6 @@ var url = req.url;
           res.writeHead(200, {"Content-Type": "image/gif"});
           res.end(data);
          });
-
-      }else if("/button/btn1.png" == url)
-      {
-          fs.readFile("./button/btn1.png", function (err, data)
-         {
-          res.writeHead(200, {"Content-Type": "image/png"});
-          res.end(data);
-         });
-      }else if("/button/btn2.png" == url)
-      {
-          fs.readFile("./button/btn2.png", function (err, data)
-         {
-          res.writeHead(200, {"Content-Type": "image/png"});
-          res.end(data);
-         });
-      }else if("/button/btn3.png" == url)
-      {
-          fs.readFile("./button/btn3.png", function (err, data)
-         {
-          res.writeHead(200, {"Content-Type": "image/png"});
-          res.end(data);
-         });
       }else if ("/rank.ejs" == url)
   {
 
@@ -178,17 +166,16 @@ var url = req.url;
 /* ok文章
        connection.query('SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable;', function (err, result1) 
      {
-       if (err) { console.log('esrr: ' + err); }
        console.log(result1);
 */
       //asで名前つける時は""で囲むの超重要！！
-       connection.query('SELECT * ,FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) as "rank" FROM ariaketable ORDER BY total DESC;', function (err, result2) 
+       connection.query('SELECT id,COALESCE(name,"unknown") as name,COALESCE(score1,0) as score1,COALESCE(score2,0) as score2,COALESCE(score3,0) as score3,total,FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) as "rank" FROM ariaketable ORDER BY total DESC;', function (err, result2) 
      {
        if (err) { console.log('esrr: ' + err); }
+       //表示用最終結果
        console.log(result2);
 
 
-//"SELECT FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) from ariaketable WHERE id=" + cnt + ";"
        connection.query('SELECT FIND_IN_SET(total,(SELECT GROUP_CONCAT(total ORDER BY total DESC)FROM ariaketable)) as "rank" from ariaketable WHERE id=' + cnt + ';', function (err,result3) 
        {
         if (err) throw err;
@@ -203,7 +190,6 @@ var url = req.url;
        if (err) { console.log('esrr: ' + err); }
        console.log(result);
 */
-
 /*
      //行番号付
 　　　　connection.query('select@rownum:=@rownum+1 as row_num,total from (SELECT @rownum:=0) AS ROW_NUM_TBL,ariaketable;', function (err, result) 
@@ -221,8 +207,10 @@ var url = req.url;
 
         var i;
         var rend = ejs.render(data, {
-        content:"合計点数は、<br>第1問:"
-       + res1 +"点<br>" + "第2問:" + res2 + "点で、<br>合計:" + (parseInt(res1) + parseInt(res2)) +"点で" + result3[0].rank + "位でした！",
+        content:"得点は、&nbsp;&nbsp;第1問:<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>"
+       + res1 +"</span>点&nbsp;&nbsp;&nbsp;&nbsp;" + "第2問:<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>" + res2 + 
+       "</span>点で、&nbsp;&nbsp;&nbsp;&nbsp;合計:<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>"
+        + (parseInt(res1) + parseInt(res2)) +"</span>点&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;結果は、第<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>" + result3[0].rank + "</span>位でした！",
         result:result2,
         });
 
@@ -246,14 +234,16 @@ var url = req.url;
 
 
 
-
+//////////////////////post/////////////////////////
 if (req.headers["content-type"] == "application/json")
 {
           req.setEncoding("utf-8");
     req.on("data", function(chunk)
-        {
+    {
         var data = JSON.parse(chunk);
-        if(data.score1)
+
+        //score1
+        if(data.score1 || data.score1==0)
       {
         console.log(data.score1);
         score1 = Object.assign(data.score1);
@@ -270,8 +260,9 @@ if (req.headers["content-type"] == "application/json")
         if (err) { console.log('err: ' + err); }
         console.log(rows);
         });
-      }else if(data.score2)
- {
+        //score2
+      }else if(data.score2 || data.score2==0)
+   {
         score2 = Object.assign(data.score2);
         console.log(score2)
 
@@ -306,11 +297,30 @@ if (req.headers["content-type"] == "application/json")
    });
 
 
- //else if(data.score2)
- }
+ //else if(gakkou)
+    }else if(data.gakkou || data.gakkou=="")
+      {
+        var gakkou = Object.assign(data.gakkou);
+        console.log(gakkou)
+        console.log(String(gakkou));
+        connection.query("UPDATE ariaketable SET name=" +"'" + gakkou + "'" + " WHERE id=" + cnt + ";" , function(err, result)
+       {
+       if (err) throw err;
+       console.log(result);
+      connection.query('SELECT * from ariaketable;', function (err, rows, fields) 
+       {
+       if (err) { console.log('esrr: ' + err); }
+       console.log(rows);
+       });
+
+
+
+       });
+        //gakkou
+      }
  //req.on
  });
-//(req.headers["content-type"] == "application/json")
+//(req.headers["content-type"] == "application/json")///////////////////
 }
 
    }).listen(8080);

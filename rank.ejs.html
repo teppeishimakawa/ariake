@@ -7,29 +7,128 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 　<style type="text/css">
 
+body{
+background: #4CA1AF;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #C4E0E5, #4CA1AF);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+color: white;
+}
 
+thead, tbody {
+  display: block;
+}
+tbody {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 400px;
+}
+th, td {
+  width: 100px;
+  text-align:center;
+  color: white;
+  font-weight: bold;
+}
+
+th{
+background-color:#a9a9a9
+}
+
+
+.child2{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 20%;
+  left: 90%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+
+
+.btn-shine {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.btn-shine:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
+
+    .fade{
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    transition-delay:2s;
+    opacity: 1;
+　　　}
+
+    /*消える*/
+.fade1{
+ opacity:0;
+ pointer-events:none
+      }
+
+/*出る*/
+.fade2{
+ opacity:1;
+ pointer-events:auto;
+ transition-delay:0s;
+      }
  </style>
 <title>ariake</title>
 </head>
 <body>
 
-<div><%- content %></div>
+<div style="text-align:center;">
+<h1 style="color:white;">ranking</h1>
 <br>
+<div ><%- content %></div>
+<br>
+
+<label for="gakkou">学校・団体名入力欄:</label>
+<input type="text" id="gakkou" style="width:250px;"/>
+<br>
+<br>
+
 <!--重要！！要素を出力したい場合はscriptの中だとしても<%- %> で記述する！！-->
-<h1>ranking</h1>
-  <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+  <table style="display:inline-block; text-align:center;" border="1" cellspacing="0" cellpadding="5" bordercolor="#2f4f4f">
+    <thead>
   	<tr>
-  	 <th bgcolor="#EE0000"><font color="#FFFFFF">ranking</font></th>
-     <th bgcolor="#EE0000"><font color="#FFFFFF"></font></th>
-     <th bgcolor="#EE0000" width="150"><font color="#FFFFFF">name</font></th>
-     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score1</font></th>
-     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score2</font></th>
-     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">score3</font></th>
-     <th bgcolor="#EE0000" width="100"><font color="#FFFFFF">total</font></th>
+  	 <th>id</font></th>
+     <th>ranking</font></th>
+     <th>name</font></th>
+     <th>score1</font></th>
+     <th>score2</font></th>
+     <th>score3</font></th>
+     <th>total</font></th>
     </tr>
+    </thead>
 
 
-   <% for(var i=0;i < result.length ; i++){ %>
+    <tbody>
+    <% for(var i=0;i < result.length ; i++){ %>
     <tr>
     <td> <%- String(result[i].id) %> </td>
     <td> <%- String(result[i].rank) %> 位 </td>
@@ -39,12 +138,79 @@
    	<td> <%- String(result[i].score3) %> </td>
    	<td> <%- String(result[i].total) %> </td>
    </tr>
-   <% } %>
+    <% } %>
+    </tbody>
+
 
   </table>
+</div>
 
 
 
+<div style="text-align: center;" class="fade child2 fade1" id="fader">
+<div id="back" class="container-02 ">
+<a href="#" class="btn-shine is-pink">back</a>
+</div>
+
+
+
+<script type="text/javascript">
+
+  document.getElementById("gakkou").onchange=function()
+ {
+    var json = {};
+    json.gakkou = document.getElementById("gakkou").value;
+    var request = new XMLHttpRequest();
+    var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
+    request.open("POST", "http://127.0.0.1:8080");
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(jsonText);
+
+    location.href="./rank.ejs"
+  }
+
+
+
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+
+
+var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+//document.body.innertWidthだとスクロールしたすべてのウィンドウサイズが取得できる
+ document.getElementById("parent").style.width=document.body.innertWidth + "px";
+ document.getElementById("parent").style.height=document.body.innerHeight + "px";
+
+
+</script>
 
 </body>
 </html>

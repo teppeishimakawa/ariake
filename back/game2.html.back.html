@@ -76,37 +76,6 @@ background: linear-gradient(to right, #C4E0E5, #4CA1AF); /* W3C, IE 10+/ Edge, F
   text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
 }
 
-
-.btn-shine2 {
-  color: #FFF;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 45px;
-  width: 200px;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: 1px solid transparent;
-  outline: 1px solid;
-  outline-color: rgba(255, 255, 255, 0.5);
-  outline-offset: 0px;
-  text-shadow: none;
-  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
-  height:120px;
-  display: table-cell; /* IE8から使用可能。テキスト上下中央揃え */
-  vertical-align: middle;
-}
-
-.btn-shine2:hover {
-  border-color: #FFF;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
-  outline-color: transparent;
-  outline-offset: 12px;
-  text-shadow: 2px 2px 3px #000;
-  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
-}
-
 .container-02 {
   display: inline-block;
   text-align: center;
@@ -230,7 +199,7 @@ animation: popa 0.3s 0s ease;
     }
 
 ul{
-  transform: translateX(0%) translateY(0%);
+  transform: translateX(-1.2%) translateY(0%);
 }
 
 /*barのpadding*/
@@ -238,24 +207,20 @@ ul{
     display:  inline-block;
     width:  100px;
     text-align:  center;
-    margin: 0px 120px;
+    margin: 0px 107px;
 　　　　　}
 
 .bar {
     width:  30px;
     height: 300px;
     margin:  0 auto;
-    /*border-style: solid; border-color:#778899;*/
-    background:linear-gradient(to right,#f5f5f5, #778899);
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.4);
+    background-color:#778899;
 }
 
 .bar1 {
     width:  30px;
     margin:  0 auto;
-    /*border-style: solid; border-color:#1e90ff;*/
-    background:linear-gradient(to right,#e0ffff, #1e90ff);
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.4);
+    background-color: #1e90ff;
 }
 
 
@@ -268,11 +233,11 @@ ul{
 
 <!--すべての要素を入れないと、child設定しても変な位置に飛ぶのでp要素もparent配下へ-->
 <div class="parent" id="parent">
-<p id="q" class="font">Q1. ここ有明水再生センターで、<br>1日にキレイにできる水の量は？</p>
+<p class="font">Q1. ここ有明水再生センターでは、<br>1日に何人の人が働いているでしょうか？</p>
 
 <div style="text-align: center;" class="btn btn1">
 <div id="answer" class="container-02 ">
-<a class="btn-shine is-pink">答える</a>
+<a href="#" class="btn-shine is-pink">答える</a>
 </div>
 </div>
 
@@ -305,42 +270,38 @@ ul{
 </ul>
 
 <div class="btnall">
+ <div id="btn1" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn1.png" width="150" height="150" />
+  <div class="txt1">
+   <p>A</p>
+  </div>
+  <p class="txt2">A. 1人</p>
+ </div>
+
+  <div id="btn2" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn2.png" width="150" height="150" />
+  <div class="txt1">
+   <p>B</p>
+  </div>
+  <p class="txt2">B. 100人</p>
+ </div>
 
 
- <div class="btn1" style="margin:0px 70px">
-<div id="btn1" class="container-02 " width="150">
-<a id="a" class="btn-shine2 is-pink">A. 1リットル</a>
-</div>
-</div>
-
- <div class="btn1" style="margin:0px 70px">
-<div id="btn2" class="container-02 " width="150">
-<a id="b" class="btn-shine2 is-pink">B. 1万リットル</a>
-</div>
-</div>
-
- <div class="btn1" style="margin:0px 70px">
-<div id="btn3" class="container-02 " width="150">
-<a id="c" class="btn-shine2 is-pink">C. 100万リットル</a>
-</div>
-</div>
-
-</div>
-  <!--div id="btn3" class="btn1" style="margin:0px 80px">
+  <div id="btn3" class="btn1" style="margin:0px 80px">
   <img src="./button/btn3.png" width="150" height="150" />
   <div class="txt1">
    <p>C</p>
   </div>
-  <p class="txt2">C. 100万リットル</p>
+  <p class="txt2">C. 100万人</p>
  </div>
-</div-->
+</div>
 
 
 <div style="text-align: center;" class="fade child fade1" id="fader">
 <div id="back" class="container-02 ">
-<a class="btn-shine is-pink">back</a>
+<a href="#" class="btn-shine is-pink">back</a>
 </div>
-
+</div>
   <!--div style="text-align: center;" class="fade child fade1" id="fader">
    <div id="back" class="btn btn1" >
     <img src="./button/def.png" width="200" height="80" />
@@ -366,30 +327,6 @@ var cnt3=0;
 const bar = document.getElementsByClassName('bar');
 const bar1 = document.getElementsByClassName('bar1');
 const num = document.getElementsByClassName('num');
-
-var url1;
-
-console.log(window.parent.flg1);
-console.log(window.parent.flg2);
-
-if(window.parent.flg1 == 1)
- {
-  document.getElementById('q').innerHTML="Q1. ここ有明水再生センターで、<br>1日にキレイにできる水の量は？";
-  document.getElementById('a').innerHTML="A. 1リットル";
-  document.getElementById('b').innerHTML="B. 1万リットル";
-  document.getElementById('c').innerHTML="C. 100万リットル";
-  url1="./result.html";
- }else if(window.parent.flg2 == 1)
- {
-  document.getElementById('q').innerHTML="Q2. ここ有明水再生センターでは、<br>1日に何人の人が働いているでしょうか？";
-  document.getElementById('a').innerHTML="A. 1人";
-  document.getElementById('b').innerHTML="B. 100人";
-  document.getElementById('c').innerHTML="C. 100万人";
-  url1="./result.html";
- }
-
-
-
 
 document.getElementById("back").onclick=function()
  {
@@ -468,7 +405,7 @@ document.getElementById("btn2").onclick=function()
 
   document.getElementById("answer").onclick=function()
  {
-location.href=url1;
+location.href="./result2.html"
  }
 
 
