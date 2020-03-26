@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="./style.css"/>
-<!--link rel="prefetch" href="./style.css"-->
+<link rel="prefetch" href="./video/warp.png">
 　<style type="text/css">
 
 
@@ -50,13 +50,15 @@ height:1280px;
 <div id="container">
 <!--iframe src="./menu.html" id="ifma" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe-->
 <iframe src="./menu.html" id="ifma" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
-<iframe src="./video.html" id="ifmb"  width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
+<!--iframe src="./video.html" id="ifmb"  width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
 <iframe src="./game.html" id="ifmc"  width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
-
-
-<!--iframe src="./game_result.html" id="ifmd" style="margin:0;padding:0;border:0;" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe-->
+<iframe src="./setting.html" id="ifmd"  width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe-->
 </div>
 
+
+<audio id="se1" preload="auto">
+   <source src="./sound/se1.mp3" type="audio/mp3">
+</audio>
 
 
 <script crossorigin="anonymous">
@@ -70,6 +72,11 @@ var score3=0;
 var flg1=0;
 var flg2=0;
 
+var ip="127.0.0.1";
+var port="8080";
+
+
+
 //iframeまたぐ要素扱う時はonload後じゃないとエラー!!
 //crossOriginもダメなのでwebServerForChomeじゃないとハマる
 window.onload=function()
@@ -77,6 +84,7 @@ window.onload=function()
 
 document.getElementById("ifma").contentWindow.document.getElementById("menu1").onclick=function()
  {
+ document.getElementById("se1").play();
  document.getElementById("ifma").contentWindow.location.href="./video.html"
  }
 
@@ -85,11 +93,22 @@ document.getElementById("ifma").contentWindow.document.getElementById("menu2").o
  document.getElementById("ifma").contentWindow.location.href="./game_title.html"
  }
 
+ document.getElementById("ifma").contentWindow.document.getElementById("menu3").onclick=function()
+ {
+ document.getElementById("ifma").contentWindow.location.href="./setting.html"
+ }
+
+if(localStorage.getItem("ip")){ip=localStorage.getItem("ip");}
+if(localStorage.getItem("port")){port=localStorage.getItem("port");}
+
+
 }
 
-
+/*
  document.getElementById("ifmb").style.display="none";
  document.getElementById("ifmc").style.display="none";
+ document.getElementById("ifmd").style.display="none";
+ */
  console.log(document.getElementById("ifma").offsetHeight);
  console.log(document.getElementById("ifma").offsetWidth);
 console.log(document.documentElement.clientHeight);
@@ -107,7 +126,7 @@ console.log(screen.height)
 
 
 
-//縦横変更する際は以下を有効に。windowサイズwidthとheightを逆に/////////////////////////////
+//縦横変更する際は以下を有効に。windowサイズwidthとheightを逆に。clientWidthだと有効ウィンドウサイズできっちりいく/////
 document.body.style.width=document.documentElement.clientHeight + "px";
 console.log(document.body.style.width);
 document.body.style.height=document.documentElement.clientWidth + "px";

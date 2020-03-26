@@ -18,12 +18,12 @@
 
 <div class="all">
 <div class="video" >
-<!--overlayさせる時はvideo閉じタグ超重要!-->
- <video src="./video/warp.mp4" autoplay id="vid"></video>
+<!--overlayさせる時はvideo閉じタグ超重要!  poster="./video/warp.png"    preload="metadata"-->
+ <video src="./video/warp.mp4" autoplay id="vid" style="background-color:black"></video>
 
 <div style="text-align: center;" class="childvideo fade1" id="fader">
 <div id="back" class="container-02 ">
-<a href="#" class="btn-shine is-pink">back</a>
+<a class="btn-shine is-pink">back</a>
 </div>
 </div>
 
@@ -59,7 +59,7 @@ function btnOff()
 document.getElementById("fader").classList.remove("fade2");
 //消える処理
 document.getElementById("fader").classList.add("fade1");
-document.getElementById("fade").classList.add("fade1");
+document.getElementById("fade").classList.add("fade");
 }
 
 window.onload=function()
@@ -85,6 +85,12 @@ document.getElementById("fader").classList.add("fade");
  document.getElementById("vid").style.height=720*0.8 + "px";
 
 
+
+document.getElementById("vid").style.visibility="hidden";
+
+	document.getElementById("vid").addEventListener("loadeddata", function(){
+		document.getElementById("vid").style.visibility="visible";
+	}, false);
 
 
 </script>

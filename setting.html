@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="./style.css"/>
+　<style type="text/css">
+
+
+ </style>
+<title>ariake</title>
+</head>
+
+<body>
+
+<div style="text-align: center;">
+<p class="font">設定</p>
+<br>
+
+<div style="text-align: center;" class="child4 fade1" id="fader">
+<div id="back" class="container-02 ">
+<a class="btn-shine is-pink">back</a>
+</div>
+</div>
+
+
+<div class="center">
+
+<div class="setblock">
+<label for="severIp">serverIP:</label>
+<input type="text" id="severIp" value="127.0.0.1">
+</div>
+
+<div class="setblock">
+<label for="severIp">serverPort:</label>
+<input type="text" id="severPort" value="8080">
+</div>
+
+<br>
+<br>
+
+
+
+ <br>
+ <br>
+
+<div id="setok" class="container-02 btn1">
+<a class="btn-shine is-pink">決定</a>
+</div>
+
+</div>
+</div>
+
+<script>
+
+
+document.getElementById("severIp").value=localStorage.getItem("ip");
+document.getElementById("severPort").value=localStorage.getItem("port");
+
+
+
+  document.getElementById("setok").onclick=function()
+ {
+ //window.parent.ip=document.getElementById("severIp").value;
+ //window.parent.port=document.getElementById("severPort").value;
+ console.log(document.getElementById("severIp").value);
+ localStorage.setItem("ip",document.getElementById("severIp").value);
+ localStorage.setItem("port",document.getElementById("severPort").value);
+ console.log(localStorage.getItem("ip"));
+ }
+
+
+//document.getElementById("size").value=localStorage.getItem("siz");
+//localStorage.setItem("siz",document.getElementById("size").value);
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+ var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+document.getElementById("fader").classList.add("fade");
+
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+document.getElementById("fader").classList.add("fade");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+</script>
+</body>
+</html>

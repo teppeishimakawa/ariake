@@ -24,9 +24,9 @@
 </div>
 <br>
 
-<div style="text-align: center;" class="child2 fade1" id="fader">
+<div style="text-align: center;" class="child4 fade1" id="fader">
 <div id="back" class="container-02 ">
-<a href="#" class="btn-shine is-pink">back</a>
+<a class="btn-shine is-pink">back</a>
 </div>
 
 
@@ -44,14 +44,14 @@ if(window.parent.flg1 == 1)
 score=parseInt(100*window.parent.pcnt3/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
 seikai="正解は<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>C</span>でした！"
 if(!score){score=0};
-kekka1="獲得ポイントは" + score + "点です。<br><br>Cを選んだ" + window.parent.pcnt3 + "人のみなさん、さすがです!!<br><br>"
+kekka1="獲得ポイントは" + score + "点です。<br><br>Cを選んだ" + window.parent.pcnt3 + "人の方、さすがです!!<br><br>"
 
  }else if(window.parent.flg2 == 1)
  {
 score=parseInt(100*window.parent.pcnt2/(window.parent.pcnt1 + window.parent.pcnt2 + window.parent.pcnt3));
 if(!score){score=0};
 seikai="正解は<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>B</span>でした！"
-kekka1="獲得ポイントは" + score + "点です。<br><br>Bを選んだ" + window.parent.pcnt2 + "人のみなさん、さすがです!!<br><br>"
+kekka1="獲得ポイントは" + score + "点です。<br><br>Bを選んだ" + window.parent.pcnt2 + "人の方、さすがです!!<br><br>"
 
  }
 
@@ -76,7 +76,9 @@ if(window.parent.flg1 == 1)
     json.score1 = score;
     var request = new XMLHttpRequest();
     var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
-    request.open("POST", "http://127.0.0.1:8080");
+    console.log(window.parent.ip);
+    console.log(window.parent.port);
+    request.open("POST", "http://"+ window.parent.ip + ":" + window.parent.port);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(jsonText);
  }
@@ -88,7 +90,7 @@ if(window.parent.flg1 == 1)
     json.score2 = score;
     var request = new XMLHttpRequest();
     var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
-    request.open("POST", "http://127.0.0.1:8080");
+    request.open("POST", "http://"+window.parent.ip+ ":" + window.parent.port);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(jsonText);
 

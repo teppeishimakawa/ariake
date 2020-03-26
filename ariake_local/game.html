@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="./style.css"/>
+　<style type="text/css">
+
+
+
+
+
+
+ </style>
+<title>ariake</title>
+</head>
+<body>
+
+<!--すべての要素を入れないと、child設定しても変な位置に飛ぶのでp要素もparent配下へ-->
+<div class="parent" id="parent">
+<p id="q" class="font">Q1. ここ有明水再生センターで、<br>1日にキレイにできる水の量は？</p>
+
+<div style="text-align: center;" class="btn btn1">
+<div id="answer" class="container-02 ">
+<a class="btn-shine is-pink">答える</a>
+</div>
+</div>
+
+  <!--div style="text-align:center;display:block;" >
+   <div id="answer" class="btn btn1" >
+    <img src="./button/def.png" width="200" height="80" />
+    <div class="txt">
+     <p id="test">答える</p>
+    </div>
+   </div>
+  </div-->
+<br>
+<br>
+<ul>
+    <li class="list">
+        <div class="bar" ></div>
+        <div class="bar1" ></div>
+        <p class="num txt2">&nbsp;</p>
+    </li>
+    <li class="list">
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num txt2">&nbsp;</p>
+    </li>
+    <li class="list">
+        <div class="bar"></div>
+        <div class="bar1" ></div>
+        <p class="num txt2" >&nbsp;</p>
+    </li>
+</ul>
+
+<div class="btnall">
+
+
+ <div class="btn1" style="margin:0px 70px">
+<div id="btn1" class="container-02 " width="150">
+<a id="a" class="btn-shine2 is-pink">A. 1リットル</a>
+</div>
+</div>
+
+ <div class="btn1" style="margin:0px 70px">
+<div id="btn2" class="container-02 " width="150">
+<a id="b" class="btn-shine2 is-pink">B. 1万リットル</a>
+</div>
+</div>
+
+ <div class="btn1" style="margin:0px 70px">
+<div id="btn3" class="container-02 " width="150">
+<a id="c" class="btn-shine2 is-pink">C. 100万リットル</a>
+</div>
+</div>
+
+</div>
+  <!--div id="btn3" class="btn1" style="margin:0px 80px">
+  <img src="./button/btn3.png" width="150" height="150" />
+  <div class="txt1game">
+   <p>C</p>
+  </div>
+  <p class="txt2game">C. 100万リットル</p>
+ </div>
+</div-->
+
+
+<div style="text-align: center;" class="child2 fade1" id="fader">
+<div id="back" class="container-02 ">
+<a class="btn-shine is-pink">back</a>
+</div>
+
+  <!--div style="text-align: center;" class="fade child fade1" id="fader">
+   <div id="back" class="btn btn1" >
+    <img src="./button/def.png" width="200" height="80" />
+    <div class="txt">
+     <p id="test">back</p>
+    </div>
+   </div>
+  </div-->
+
+</div>
+<br>
+<br>
+
+
+
+
+
+<script>
+
+var cnt1=0;
+var cnt2=0;
+var cnt3=0;
+const bar = document.getElementsByClassName('bar');
+const bar1 = document.getElementsByClassName('bar1');
+const num = document.getElementsByClassName('num');
+
+var url1;
+
+console.log(window.parent.flg1);
+console.log(window.parent.flg2);
+
+
+
+
+if(window.parent.flg1 == 1)
+ {
+  document.getElementById('q').innerHTML="Q1. ここ有明水再生センターで、<br>1日にキレイにできる水の量は？";
+  document.getElementById('a').innerHTML="A. 1リットル";
+  document.getElementById('b').innerHTML="B. 1万リットル";
+  document.getElementById('c').innerHTML="C. 100万リットル";
+  url1="./result.html";
+ }else if(window.parent.flg2 == 1)
+ {
+  document.getElementById('q').innerHTML="Q2. ここ有明水再生センターでは、<br>1日に何人の人が働いているでしょうか？";
+  document.getElementById('a').innerHTML="A. 1人";
+  document.getElementById('b').innerHTML="B. 100人";
+  document.getElementById('c').innerHTML="C. 100万人";
+  url1="./result.html";
+ }
+
+
+
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+
+
+var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+document.getElementById("fader").classList.add("fade");
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+document.getElementById("fader").classList.add("fade");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+
+console.log(document.body.offsetWidth);
+
+
+
+document.getElementById("btn1").onclick=function()
+ {
+  cnt1++;
+ num[0].innerHTML = cnt1;
+ if(cnt1>60){return false}
+ bar1[0].style.height = cnt1*5 + 'px';
+ bar[0].style.height = 300 - cnt1*5 + 'px';
+ //parent windowの変数にcnt1を格納。これをresult iframeから参照する
+ window.parent.pcnt1=cnt1;
+ console.log(window.parent.pcnt1);
+
+ }
+
+document.getElementById("btn2").onclick=function()
+ {
+  cnt2++;
+ num[1].innerHTML = cnt2;
+ if(cnt2>60){return false}
+ bar1[1].style.height = cnt2*5 + 'px';
+ bar[1].style.height = 300 - cnt2*5 + 'px';
+ window.parent.pcnt2=cnt2;
+ }
+
+ document.getElementById("btn3").onclick=function()
+ {
+  cnt3++;
+ num[2].innerHTML = cnt3;
+ if(cnt3>60){return false}
+ bar1[2].style.height = cnt3*5 + 'px';
+ bar[2].style.height = 300 - cnt3*5 + 'px';
+ window.parent.pcnt3=cnt3;
+ }
+
+
+  document.getElementById("answer").onclick=function()
+ {
+location.href=url1;
+ }
+
+
+
+
+//window.parent.screen.width window.parent.screen.height window.innerWidth window.innerHeight;
+</script>
+
+
+</body>
+</html>

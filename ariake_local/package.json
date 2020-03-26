@@ -1,0 +1,27 @@
+{
+  "name": "ariake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ariakenode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teppeishimakawa/ariake.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teppeishimakawa/ariake/issues"
+  },
+  "homepage": "https://github.com/teppeishimakawa/ariake#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "install": "^0.13.0",
+    "mysql": "^2.18.1",
+    "npm": "^6.14.2"
+  }
+}

@@ -7,12 +7,13 @@ var fs = require('fs');
 var mysql = require('mysql');
 var ejs = require('ejs');
 
-
+//pc内のdb使う場合はlocalhost,port3306
 var connection = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'ariake',
-    database:'ariake'
+    database:'ariake',
+    port:'3306'
 });
 connection.connect();
 
@@ -114,6 +115,14 @@ var url = req.url;
       res.write(data);
       res.end();
     });
+  }  else if ("/setting.html" == url)
+  {
+    fs.readFile("./setting.html", "UTF-8", function (err, data)
+    {
+      res.writeHead(200, {"Content-Type": "text/html"});
+      res.write(data);
+      res.end();
+    });
   }
 /*
   else if ("/result2.html" == url)
@@ -146,6 +155,20 @@ var url = req.url;
           fs.readFile("./video/laughlot.gif", function (err, data)
          {
           res.writeHead(200, {"Content-Type": "image/gif"});
+          res.end(data);
+         });
+      }else if("/sound/se1.mp3" == url)
+      {
+          fs.readFile("./sound/se1.mp3", function (err, data)
+         {
+          res.writeHead(200, {"Content-Type": "audio/mp3"});
+          res.end(data);
+         });
+      }else if("/video/warp.png" == url)
+      {
+          fs.readFile("./video/warp.png", function (err, data)
+         {
+          res.writeHead(200, {"Content-Type": "image/png"});
           res.end(data);
          });
       }else if ("/rank.ejs" == url)

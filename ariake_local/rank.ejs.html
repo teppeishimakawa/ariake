@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="./style.css"/>
+<style type="text/css">
+
+ </style>
+<title>ariake</title>
+</head>
+<body>
+
+<div style="text-align:center;">
+<h1 style="color:white;">ranking</h1>
+<br>
+<div ><%- content %></div>
+<br>
+
+<label for="gakkou">学校・団体名入力欄:</label>
+<input type="text" id="gakkou" style="width:250px;"/>
+<br>
+<br>
+
+<!--重要！！要素を出力したい場合はscriptの中だとしても<%- %> で記述する！！-->
+  <table style="display:inline-block; text-align:center;" border="1" cellspacing="0" cellpadding="5" bordercolor="#2f4f4f">
+    <thead>
+  	<tr>
+  	 <th>id</font></th>
+     <th>ranking</font></th>
+     <th class="long">name</font></th>
+     <th>score1</font></th>
+     <th>score2</font></th>
+     <th>score3</font></th>
+     <th>total</font></th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+    <% for(var i=0;i < result.length ; i++){ %>
+    <tr>
+    <td> <%- String(result[i].id) %> </td>
+    <td> <%- String(result[i].rank) %> 位 </td>
+   	<td class="long"> <%- String(result[i].name) %> </td>
+   	<td> <%- String(result[i].score1) %> </td>
+   	<td> <%- String(result[i].score2) %> </td>
+   	<td> <%- String(result[i].score3) %> </td>
+   	<td> <%- String(result[i].total) %> </td>
+   </tr>
+    <% } %>
+    </tbody>
+
+
+  </table>
+</div>
+
+
+
+<div style="text-align: center;" class="child3 fade1" id="fader">
+<div id="back" class="container-02 ">
+<a href="#" class="btn-shine is-pink">back</a>
+</div>
+
+
+
+<script type="text/javascript">
+
+  document.getElementById("gakkou").onchange=function()
+ {
+    var json = {};
+    json.gakkou = document.getElementById("gakkou").value;
+    var request = new XMLHttpRequest();
+    var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
+    request.open("POST", "http://127.0.0.1:8080");
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(jsonText);
+
+    location.href="./rank.ejs"
+  }
+
+
+
+
+document.getElementById("back").onclick=function()
+ {
+ window.parent.location.href="./index.html"
+ }
+
+
+
+var reOff=function(){setTimeout(btnOff,2000)};
+
+function btnOff()
+{
+document.getElementById("fader").classList.remove("fade2");
+//消える処理
+document.getElementById("fader").classList.add("fade1");
+document.getElementById("fader").classList.add("fade");
+}
+
+window.onload=function()
+{
+
+}
+
+//タップでボタン表示、有効化 →2秒したらまた消える処理
+function appear()
+{
+document.getElementById("fader").classList.remove("fade1");
+//出現する処理
+document.getElementById("fader").classList.add("fade2");
+document.getElementById("fader").classList.add("fade");
+}
+
+ document.addEventListener("click",appear,false);
+ document.addEventListener("click",reOff,false);
+
+
+
+</script>
+
+</body>
+</html>

@@ -30,7 +30,7 @@
   	<tr>
   	 <th>id</font></th>
      <th>ranking</font></th>
-     <th>name</font></th>
+     <th class="long">name</font></th>
      <th>score1</font></th>
      <th>score2</font></th>
      <th>score3</font></th>
@@ -44,7 +44,7 @@
     <tr>
     <td> <%- String(result[i].id) %> </td>
     <td> <%- String(result[i].rank) %> 位 </td>
-   	<td> <%- String(result[i].name) %> </td>
+   	<td class="long"> <%- String(result[i].name) %> </td>
    	<td> <%- String(result[i].score1) %> </td>
    	<td> <%- String(result[i].score2) %> </td>
    	<td> <%- String(result[i].score3) %> </td>
@@ -61,7 +61,7 @@
 
 <div style="text-align: center;" class="child3 fade1" id="fader">
 <div id="back" class="container-02 ">
-<a href="#" class="btn-shine is-pink">back</a>
+<a class="btn-shine is-pink">back</a>
 </div>
 
 
@@ -74,7 +74,7 @@
     json.gakkou = document.getElementById("gakkou").value;
     var request = new XMLHttpRequest();
     var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
-    request.open("POST", "http://127.0.0.1:8080");
+    request.open("POST", "http://"+window.parent.ip+ ":" + window.parent.port);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(jsonText);
 

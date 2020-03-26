@@ -1,0 +1,435 @@
+
+
+
+@keyframes appear {
+0% { opacity: 0.0;transform:scale(0.1) rotate(-45deg) }
+50% {transform:scale(1.5)}
+100% { opacity: 1.0;transform:scale(1.0) rotate(0deg) }
+}
+
+@keyframes pop {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.5)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+@keyframes popa {
+0% { opacity: 1.0;transform:scale(1.0)}
+50% {transform:scale(1.1)}
+100% { opacity: 1.0;transform:scale(1.0)}
+}
+
+
+/*chromeで右スクロールバー出さないため必要*/
+html {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+/*重要！backgroundはbodyだけだとおかしくなる*/
+html, body ,iframe
+{
+  height:100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background: #4CA1AF; 
+  background: linear-gradient(to left, #C4E0E5, #4CA1AF); 
+  background: -webkit-linear-gradient(to left, #C4E0E5, #4CA1AF); 
+  background-size: 100%;
+  color: white;
+}
+
+
+
+/*
+iframe
+{
+ border:1px solid #CCC;
+}
+*/
+
+
+
+.fade{
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    transition-delay:2s;
+    opacity: 1;
+　　　}
+
+    /*消える*/
+.fade1{
+ opacity:0;
+ pointer-events:none
+      }
+
+/*出る*/
+.fade2{
+ opacity:1;
+ pointer-events:auto;
+ transition-delay:0s;
+      }
+
+
+
+.btn-shine {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.btn-shine:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
+.container-02 {
+  display: inline-block;
+  text-align: center;
+  width:200px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+
+
+/*width,heightはjsでwindow sizeで定義*/
+.parent{
+  position: relative;
+  display:block;
+  text-align: center;
+  transform: translate(0%,0%);
+    }
+
+
+
+.btn{
+  position: relative;
+  display:inline-block;
+  animation: pop 0.5s 0.8s ease;
+    }
+
+.btn:active
+{
+animation: pop 0.3s 0s ease;
+}
+
+
+.txt{
+  position: absolute;
+  top: 50%;
+    left: 50%;
+    transform: translate(-50%,-55%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+.font{
+  font-family :Quicksand, sans-serif;
+  color: #2f4f4f;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 100%;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  background-color:white;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+    }
+
+
+
+/*↓のdiv重要*/
+.all{
+position:absolute;
+top:50%;
+left:50%;
+transform: translateX(-50%) translateY(-50%);
+}
+
+.video{
+  position: relative;
+  display:block;
+  text-align: center;
+  transform: translate(0%,0%);
+    }
+
+#vid{
+transform-origin:center;
+transform:translateX(0px) translateY(0px) rotate(-90deg);
+border: 1px solid black;
+background: #FFF; 
+}
+
+
+
+.txtresult{
+    font-weight: bold;
+    font-size: 1em;
+    font-family :Quicksand, sans-serif;
+    color: white;
+    }
+
+
+
+
+
+.txt1{
+    font-weight: bold;
+    font-size: 1em;
+    font-family :Quicksand, sans-serif;
+    color: white;
+    }
+
+
+
+
+    thead, tbody {
+  display: block;
+}
+
+tbody {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 50vh;
+}
+
+/*tbody::-webkit-scrollbar-track{background:#dddddd;}/*バーの背景色*/
+tbody::-webkit-scrollbar-thumb{background:#e0ffff;}/*バーの色*/
+tbody::-webkit-scrollbar{width:10px;}/*バーの太さ*/
+
+th, td {
+  width: 80px;
+  text-align:center;
+  color: white;
+  font-weight: bold;
+}
+
+.long {
+  width: 100px;
+  text-align:center;
+  color: white;
+  font-weight: bold;
+}
+
+th{
+background-color:#a9a9a9
+}
+
+
+
+
+
+
+.btn-shine2 {
+  color: #FFF;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 45px;
+  width: 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+  height:120px;
+  display: table-cell; /* IE8から使用可能。テキスト上下中央揃え */
+  vertical-align: middle;
+}
+
+.btn-shine2:hover {
+  border-color: #FFF;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  outline-color: transparent;
+  outline-offset: 12px;
+  text-shadow: 2px 2px 3px #000;
+  text-shadow: 2px 2px 3px #4682b4;/* text-shadowを背景色に変更する*/
+}
+
+
+.btn1
+{
+position: relative;
+display:inline-block;
+}
+
+.btn1:active
+{
+animation: popa 0.3s 0s ease;
+}
+
+.btnall{
+  transform: translateX(2%) translateY(0%);
+}
+
+.txt2game{
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family :Quicksand, sans-serif;
+    margin: 0 auto;
+    }
+
+.txt1game{
+  position: absolute;
+  top: 50%;
+    left: 50%;
+    transform: translate(-48%,-64%);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
+
+
+ul{
+  transform: translateX(0%) translateY(0%);
+}
+
+/*barのpadding*/
+    li {
+    display:  inline-block;
+    width:  100px;
+    text-align:  center;
+    margin: 0px 5%;
+　　　　　}
+
+.bar {
+    width:  30px;
+    height: 300px;
+    margin:  0 auto;
+    /*border-style: solid; border-color:#778899;*/
+    background:linear-gradient(to right,#f5f5f5, #778899);
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.4);
+}
+
+.bar1 {
+    width:  30px;
+    margin:  0 auto;
+    /*border-style: solid; border-color:#1e90ff;*/
+    background:linear-gradient(to right,#e0ffff, #1e90ff);
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.4);
+}
+
+
+
+
+
+
+
+.child{
+  position: absolute;
+  top: 25%;
+  left: 90%;
+  transform: translateX(-50%) translateY(-50%);
+    }
+
+
+.childvideo{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+    }
+
+
+.childresult{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+.child1{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 65%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+
+    .child2{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 15%;
+  left: 85%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+
+.child3{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 3%;
+  left: 85%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+
+
+.child4{
+  position: absolute;
+  /*↓まず中央揃えするために必要*/
+  text-align: center;
+  top: 10%;
+  left: 85%;
+  transform: translateX(-50%) translateY(-50%);
+  width:600px;
+    }
+
+
+.center{
+  position: absolute;
+  margin:auto;
+  top: 0;right: 0;bottom: 0;left: 0;
+  width:400px;height:400px;
+}
+
+
+
