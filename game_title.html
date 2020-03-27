@@ -48,12 +48,14 @@
 </div>
 </div>
 
+
 <script>
 
   document.getElementById("quiz1").onclick=function()
  {
+  window.parent.document.getElementById("se1").play();
   window.parent.flg1=1;
- location.href="./game.html"
+  location.href="./game.html"
  }
 
    document.getElementById("quiz2").onclick=function()

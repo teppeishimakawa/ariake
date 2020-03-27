@@ -7,6 +7,11 @@
 100% { opacity: 1.0;transform:scale(1.0) rotate(0deg) }
 }
 
+@keyframes appearb {
+0% { opacity: 0.0;}
+100% { opacity: 1.0;}
+}
+
 @keyframes pop {
 0% { opacity: 1.0;transform:scale(1.0)}
 50% {transform:scale(1.5)}
@@ -140,7 +145,7 @@ animation: pop 0.3s 0s ease;
   position: absolute;
   top: 50%;
     left: 50%;
-    transform: translate(-50%,-55%);
+    transform: translate(-50%,-50%);
     color: white;
     font-weight: bold;
     font-size: 2em;
@@ -203,7 +208,8 @@ background: #FFF;
 
 
 
-
+/*divの入れ子でtop,leftやtransformダブルで設定しているとフェードでtransform掛けた時に変な
+動きになってハマるので注意!!*/
 
 .txt1{
     font-weight: bold;
@@ -212,6 +218,12 @@ background: #FFF;
     color: white;
     }
 
+.txt0{
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
+    }
 
 
 
@@ -440,6 +452,12 @@ input{
 .setblock{
   display: inline-block;
   margin: 30px;
+}
+
+
+.show
+{
+animation: appearb 1s 0s ease;
 }
 
 

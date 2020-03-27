@@ -17,11 +17,12 @@
 </head>
 <body>
 
+
 <div id="seikai" class="font"></div>
-<div id="result" class="childresult txt">
-</div>
-<div id="comment" class="child1 txt1">
-</div>
+<div id="result" class="childresult txt0"></div>
+<div id="comment" class="child1 txt1"></div>
+
+
 <br>
 
 <div style="text-align: center;" class="child4 fade1" id="fader">
@@ -57,15 +58,18 @@ kekka1="獲得ポイントは" + score + "点です。<br><br>Bを選んだ" + w
 
 
  if(isNaN(score)){score = 0};
-
- document.getElementById("result").innerHTML="<img src='./video/laughlot.gif'>";
+ document.getElementById("result").innerHTML="<img src='./video/laughlot.gif' style='width:50%;height:50%'>";
  setTimeout(function()
   {
+  document.getElementById("seikai").classList.add("show");
+  document.getElementById("result").classList.add("show");
+  document.getElementById("comment").classList.add("show");
+
   document.getElementById("seikai").style.display="block";
   document.getElementById("seikai").innerHTML=seikai;
   document.getElementById("result").innerHTML=kekka1;
-
-  document.getElementById("comment").innerHTML="Aを選んだ人:" + window.parent.pcnt1 + "人<br> Bを選んだ人:" + window.parent.pcnt2 + "人<br> Cを選んだ人:" + window.parent.pcnt3 + "人<br><br>でした";},5000);
+  document.getElementById("comment").innerHTML="Aを選んだ人:" + window.parent.pcnt1 + "人<br> Bを選んだ人:" + window.parent.pcnt2 + "人<br> Cを選んだ人:" + window.parent.pcnt3 + "人<br><br>でした";
+ },5000);
 
 
 if(window.parent.flg1 == 1)
