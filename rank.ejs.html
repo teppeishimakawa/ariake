@@ -25,7 +25,7 @@
 <br>
 
 <!--重要！！要素を出力したい場合はscriptの中だとしても<%- %> で記述する！！-->
-  <table style="display:inline-block; text-align:center;" border="1" cellspacing="0" cellpadding="5" bordercolor="#2f4f4f">
+  <table style="display:inline-block; text-align:center;" border="1" cellspacing="0" cellpadding="5" bordercolor="#2f4f4f" id="tbl">
     <thead>
   	<tr>
   	 <th>id</font></th>
@@ -53,10 +53,10 @@
     <% } %>
     </tbody>
 
-
   </table>
 </div>
 
+<div id="cntnum"><%- cnt%></div>
 
 
 <div style="text-align: center;" class="child3 fade1" id="fader">
@@ -67,6 +67,21 @@
 
 
 <script type="text/javascript">
+var rownum;
+
+ var cntnum=document.getElementById("cntnum").innerHTML;
+ document.getElementById("cntnum").style.display="none";
+ for(i=0;i<document.getElementById("tbl").rows.length;i++)
+   {
+    //parseIntで数値にしないと比較できない!!文字列だとNG
+    if (parseInt(document.getElementById("tbl").rows[i].cells[0].innerHTML) == parseInt(cntnum)) {rownum=i;console.log(i);} 
+    console.log(document.getElementById("tbl").rows[i].cells[0].innerHTML );
+   }
+
+ document.getElementById("tbl").rows[rownum].cells[1].style.color='red';
+ document.getElementById("tbl").rows[rownum].cells[2].style.color='red';
+ document.getElementById("tbl").rows[rownum].cells[6].style.color='red';
+ 
 
   document.getElementById("gakkou").onchange=function()
  {
@@ -74,12 +89,43 @@
     json.gakkou = document.getElementById("gakkou").value;
     var request = new XMLHttpRequest();
     var jsonText = JSON.stringify(json); // ここで、dataをJSON文字列に変換
+
+request.onreadystatechange = function() {
+    switch ( request.readyState ) {
+        case 0:
+            // 未初期化状態.
+            console.log( 'uninitialized!' );
+            break;
+        case 1: // データ送信中.
+            console.log( 'loading...' );
+            break;
+        case 2: // 応答待ち.
+            console.log( 'loaded.' );
+            break;
+        case 3: // データ受信中.
+            console.log( 'interactive... '+request.responseText.length+' bytes.' );
+            break;
+        case 4: // データ受信完了.
+            if( request.status == 200 || request.status == 304 ) {
+                var data = request.responseText; // responseXML もあり
+                console.log( 'COMPLETE! :'+data );
+                location.href="./rank.ejs"
+            } else {
+                console.log( 'Failed. HttpStatus: '+request.statusText );
+            }
+            break;
+    }
+};
+
+
     request.open("POST", "http://"+window.parent.ip+ ":" + window.parent.port);
+
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(jsonText);
 
-    location.href="./rank.ejs"
-  }
+
+
+};
 
 
 

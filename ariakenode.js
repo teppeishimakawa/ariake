@@ -11,7 +11,7 @@ var ejs = require('ejs');
 var connection = mysql.createConnection({
     host:'localhost',
     user:'root',
-    password:'ariake',
+    password:'',
     database:'ariake',
     port:'3306'
 });
@@ -235,6 +235,7 @@ var url = req.url;
        "</span>点で、&nbsp;&nbsp;&nbsp;&nbsp;合計:<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>"
         + (parseInt(res1) + parseInt(res2)) +"</span>点&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;結果は、第<span style='font-family :Quicksand, sans-serif;color: #2f4f4f;font-size: 32px;'>" + result3[0].rank + "</span>位でした！",
         result:result2,
+        cnt:cnt
         });
 
        res.writeHead(200, {"Content-Type": "text/html"});
@@ -336,11 +337,15 @@ if (req.headers["content-type"] == "application/json")
        console.log(rows);
        });
 
-
-
        });
         //gakkou
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.write('received upload:\n\n');
+      res.end();
+
       }
+
+
  //req.on
  });
 //(req.headers["content-type"] == "application/json")///////////////////
