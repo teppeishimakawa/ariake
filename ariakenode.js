@@ -7,15 +7,45 @@ var fs = require('fs');
 var mysql = require('mysql');
 var ejs = require('ejs');
 
-//pc内のdb使う場合はlocalhost,port3306
-var connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
+
+/////////////////reconnect処理を入れないとmysqlの自動切断(default8時間)で切れる///
+var db_config = {
+  host: 'localhost',
+    user: 'root',
+    password: '',
     database:'ariake',
     port:'3306'
-});
-connection.connect();
+};
+
+var connection;
+
+function handleDisconnect()
+{
+  connection = mysql.createConnection(db_config);
+  connection.connect(function(err)
+  {              // The server is either down
+    if(err)
+    {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });
+
+connection.on('error', function(err)
+  {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST')
+    { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else
+    {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+
+handleDisconnect();
+/////////////////////////////
 
 
 var score1= 0;
@@ -123,6 +153,14 @@ var url = req.url;
       res.write(data);
       res.end();
     });
+  } else if ("/sw.js" == url)
+  {
+    fs.readFile("./sw.js", "UTF-8", function (err, data)
+    {
+      res.writeHead(200, {"Content-Type": "text/javascript"});
+      res.write(data);
+      res.end();
+    });
   }
 /*
   else if ("/result2.html" == url)
@@ -147,7 +185,19 @@ var url = req.url;
       {
           fs.readFile("./video/warp.mp4", function (err, data)
          {
-          res.writeHead(200, {"Content-Type": "video/mp4"});
+ /*        var start = parseInt(0, 10);
+         var end = 4456448 ? parseInt(4456448, 10) : 4456448;
+         var chunksize = (end-start);*/
+          res.writeHead(200,  {
+  /*  "Content-Range": "bytes " + 0 + "-" + 4456448 + "/" + 4456448,
+    "Accept-Ranges": "bytes",
+    "Content-Length": chunksize,*/
+    "Content-Type": "video/mp4"
+  });
+          //console.log(req);
+          //console.log(req.headers['range']);
+          //console.log(req.headers.range);
+          //res.writeHead(206, {"Content-Type": "video/mp4"});
           res.end(data);
          });
       }else if("/video/laughlot.gif" == url)

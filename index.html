@@ -1,12 +1,17 @@
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" >
+<!-- html manifest="./example.appcache"-->
 <head>
 <meta charset="UTF-8" />
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="./style.css"/>
-<link rel="prefetch" href="./video/warp.png">
+<!--link rel="prefetch" href="./video/warp.mp4" as="video" crossorigin="use-credentials"-->
+<link rel="prefetch" href="./video/laughlot.gif">
+<!--link rel="prefetch" href="./video.html"-->
+<link rel="prefetch" href="./video/warp.mp4" crossorigin="use-credentials">
+<!--link rel="prefetch" href="./video/warp.png"-->
 　<style type="text/css">
 
 
@@ -45,7 +50,6 @@ height:1280px;
 <title>ariake</title>
 </head>
 <body>
-
 <!--scroll off => scrolling no-->
 <div id="container">
 <!--iframe src="./menu.html" id="ifma" width="100%" height="100%" name="aaa" scrolling="auto" frameborder="0"></iframe-->
@@ -143,6 +147,22 @@ console.log((document.documentElement.clientWidth - document.documentElement.cli
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
+/////service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js', { scope: './' }).then(() => {
+      console.log('登録成功');
+    },() => {
+      console.log('登録失敗');
+    });
+  });
+}
+
+////////////////
+
+
+
+////////////////
 
 </script>
 </body>

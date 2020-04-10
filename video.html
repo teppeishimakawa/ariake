@@ -1,11 +1,14 @@
 
-<!DOCTYPE html>
-<html lang="ja">
+<!--Statusが「304」のファイルがキャッシュから読み込まれているものです。キャッシュを使用していないファイルはStatusが「200」-->
+
+<!DOCTYPE html >
+<html lang="ja" >
 <head>
 <meta charset="UTF-8" />
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="./style.css"/>
+
 　<style type="text/css">
 
 
@@ -19,7 +22,8 @@
 <div class="all">
 <div class="video" >
 <!--overlayさせる時はvideo閉じタグ超重要!  poster="./video/warp.png"    preload="metadata"-->
- <video src="./video/warp.mp4" autoplay id="vid" style="background-color:black"></video>
+ <video id="vid" preload="auto" controls style="background-color:black"></video>
+ <!--autoplay preload="auto" src="./video/warp.mp4"-->
 
 <div style="text-align: center;" class="childvideo fade1" id="fader">
 <div id="back" class="container-02 ">
@@ -59,7 +63,7 @@ function btnOff()
 document.getElementById("fader").classList.remove("fade2");
 //消える処理
 document.getElementById("fader").classList.add("fade1");
-document.getElementById("fade").classList.add("fade");
+document.getElementById("fader").classList.add("fade");
 }
 
 window.onload=function()
@@ -88,9 +92,83 @@ document.getElementById("fader").classList.add("fade");
 
 document.getElementById("vid").style.visibility="hidden";
 
-	document.getElementById("vid").addEventListener("loadeddata", function(){
+//loadeddataイベントの代わりにcanplayもしくはcanplaythroughイベントを起点に動画を再生してみて下さい.
+	document.getElementById("vid").addEventListener("canplay", function(){
 		document.getElementById("vid").style.visibility="visible";
+    document.getElementById("vid").play();
 	}, false);
+
+
+
+
+//blob srcをblobにしないとfetch使われないので注意!!
+var xhr = new XMLHttpRequest();
+xhr.responseType = 'blob';　//サーバーに期待する応答の種類をblobに
+xhr.onload = function()
+{
+  var reader = new FileReader();
+  reader.onloadend = function()
+
+/////////////////////////////////////////
+  //一般通信で使われるBase64 -> 通常blob -> charaCodeに変換した各文字の配列 
+  //->8bit変換 ->それをnew Blobとする
+
+  //Base64:データを64種類の印字可能な英数字のみを用いて、それ以外の文字を扱うことの出来ない通信環境でもマルチバイト文字やバイナリデータを扱うためのエンコード方式
+  {//atob()はBase64 符号化でエンコードされている文字列をデコードして通常バイナリー文字列を作る
+  //byteCharacters:通常blobの後ろ部分の実データ
+  var byteCharacters = atob(reader.result.slice(reader.result.indexOf(',') + 1));
+  //console.log(reader.result);
+  //↑で通常blobの,の前のheaderみたいなのを切り捨てている。今回はdata:video/mp4;base64の部分
+  var byteNumbers = new Array(byteCharacters.length);//通常blobの文字数分の配列を作る
+    for (var i = 0; i < byteCharacters.length; i++)
+    {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);//各文字のcharaCodeを配列に格納
+    }
+    //Uint8Array:要素一つあたり1バイト(8bit = 1byte= 0から255)の配列(Array)
+    var byteArray = new Uint8Array(byteNumbers);
+    var blob = new Blob([byteArray], {type: 'video/mp4'});
+    var url = URL.createObjectURL(blob);
+
+    document.getElementById('vid').src = url;
+  }
+
+  reader.readAsDataURL(xhr.response);
+
+};
+
+xhr.open('GET', './video/warp.mp4');
+xhr.send();
+/////////////////////////////////////////
+
+/*///streams API
+let veryLongText = ''; // 細切れの値をここに結合していく。
+const decoder = new TextDecoder();
+
+fetch('./video/warp.mp4')
+  .then((response) => response.body.getReader())  // ReadableStreamを取得する。
+  .then((reader) => {
+    // ReadableStream.read()はPromiseを返す。
+    // Promiseは{ done, value }として解決される。
+    // データを読み込んだとき：doneはfalse, valueは値。
+    // データを読み込み終わったとき：doneはtrue, valueはundefined。
+    function readChunk({done, value}) {
+      if(done) {
+        // 読み込みが終わっていれば最終的なテキストを表示する。
+        console.log(veryLongText);
+        return;
+      }
+
+      veryLongText += decoder.decode(value);
+
+      // 次の値を読みにいく。
+      reader.read().then(readChunk);
+    }
+    
+    // 最初の値を読み込む。
+    reader.read().then(readChunk);
+  });
+*/
+
 
 
 </script>
